@@ -1,0 +1,47 @@
+@import "../../node_modules/bootstrap/less/mixins/clearfix.less";
+
+bh-image-gallery {
+	display: block;
+	margin: 0 -15px;
+	.clearfix;
+	.current-image-wrap {
+		position: relative;
+		p.caption {
+			background: rgba(0,0,0,0.5);
+			top: 0;
+			left: 0;
+			right: 0;
+			position: absolute;
+		}
+	}
+	.image-list {
+		margin: 0;
+		margin-right: -1px;
+		margin-bottom: -1px;
+		border-top: 2px solid #fff;
+		li {
+			float: left;
+			width: 25%;
+			height: 50px;
+			overflow: hidden;
+			position: relative;
+			cursor: pointer;
+			border-right: 1px solid #fff;
+			border-bottom: 1px solid #fff;
+			&.current {
+				img {
+					opacity: 1;
+				}
+			}
+		}
+		img {
+			min-width: 100%;
+			min-height: 100%;
+			top: 0;
+			left: 0;
+			display: block;
+			position: absolute;
+			opacity: 0.5;
+		}
+	}
+}

@@ -1,0 +1,13 @@
+<div class="current-image-wrap">
+	<img src="{{currentImage.url}}">
+	{{#if currentImage.caption}}
+		<p class="caption">{{ currentImage.caption }}</p>
+	{{/if}}
+</div>
+{{#if hasGallery}}
+	<ul class="image-list list-unstyled clearfix">
+		{{#each images}}
+			<li {{#isCurrent this}}class="current"{{/isCurrent}} can-click="setCurrent"><img src="{{url}}"></li>
+		{{/each}}
+	</ul>
+{{/if}}

@@ -1,0 +1,85 @@
+{{#if shouldRender}}
+	{{#bit}}
+		<div class="bit-wrap {{#unless @isLoaded}}loading{{/unless}} {{#unless @resolvedHeight}}animate-height{{/unless}} {{pinnedClass}} {{blockedClass}}">
+			{{#if showAdminPanel}}
+				<div class="admin-panel">
+					<div class="disapprove-approve" can-click="toggleApproveBit">
+						<div class="action-is">
+							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_approved}}block{{else}}approve{{/is_approved}}.png"/>
+							{{#is_approved}}
+								Block
+							{{else}}
+								Approve
+							{{/is_approved}}
+						</div>
+					</div>
+					
+					<div class="pin" can-click="togglePinBit">
+						<div class="action-is">
+							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_pinned}}unpin{{else}}pin{{/is_pinned}}.png"/>
+							{{#is_pinned}}
+								Unpin
+							{{else}}
+								Pin
+							{{/is_pinned}}
+						</div>
+					</div>
+				</div>
+			{{/if}}
+			
+			<div class="bit">
+				<div class="bit-content">
+
+					{{#if images.length}}
+						<bh-image-gallery images="{images}"></bh-image-gallery>
+					{{/if}}
+
+					{{#if isYoutube}}
+						<div class="youtube-embed-container">
+							<iframe src="{{ youtubeEmbedURL }}" frameborder="0" allowfullscreen>
+						</div>
+					{{/if}}
+
+					<bh-body-wrap class="{{#if images.length}}short{{else}}tall{{/if}}">
+						<h4>{{{ formattedTitle title }}}</h4>
+						{{#if body}}
+							<div class="body-inner-wrap">{{{ body }}}</div>
+						{{/if}}
+					</bh-body-wrap>
+					
+					<bh-share-bit class="{{#if sharePanelOpen}}expanded{{/if}}" card-title="{title}" media="{images.0.url}" url="{url}" bit="{.}" state="{state}"></bh-share-bit>
+				</div>
+				
+				<footer class="bit-footer col-sm-12">
+					{{#author.avatar_url}}
+						<figure class="bit-avatar">
+							<a href="{{url}}">
+								<img class="bit-avatar--img img-responsive" src="{{.}}" />
+							</a>
+						</figure>
+					{{/author.avatar_url}}
+					<figcaption>
+						{{#author.id}}
+							<div class="bit-authorName"><a href="{{url}}">{{.}}</a></div>
+						{{/author.id}}
+						{{#unless isTwitterFollow}}
+							<div class="bit-created-at">
+								{{formattedThreadUpdatedAt}}
+							</div>
+						{{/unless}}
+					</figcaption>
+					<a href="{{url}}" class="social-icon">
+						<img src="{{state.assetRoot}}images/social-empty/{{feed_name}}.png">
+					</a>
+					<i class="fa fa-share-alt share-panel-toggle {{#if sharePanelOpen}}open{{/if}}" can-click="sharePanelToggle"></i>
+				</footer>
+			</div>
+			{{#if actionFail}}
+				<div class="action-fail-alert">
+					<i class="fa fa-times" can-click="removeFailNotice"></i>
+					<div>Oops, we were not able to <b>{{actionFailTitle}}</b> this item<br> Please try again later.</div>
+				</div>
+			{{/if}}
+		</div>
+	{{/bit}}
+{{/if}}
