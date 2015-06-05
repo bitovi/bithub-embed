@@ -27,5 +27,12 @@
     "paths": {
       "lodash/*": "./node_modules/lodash-amd/modern/*.js"
     }
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "opensourced-bithub@0.0.0",
+  "dist": {
+    "shasum": "009a59778d526f2bc8acdfdfeea6b9e45de9ba3a"
+  },
+  "_resolved": "git+ssh://git@github.com:bitovi/bithub-embed#74fd7f3661e7259d323398e17e7ac8aadb28dac8",
+  "_from": "git+ssh://git@github.com:bitovi/bithub-embed"
 }

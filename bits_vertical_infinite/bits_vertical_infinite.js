@@ -7,7 +7,7 @@ import BitModel from "models/bit";
 import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";
-import "bit/";
+import "../bit/";
 
 var CARD_MIN_WIDTH = 300;
 
@@ -78,12 +78,17 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 	init : function(){
 		this.attr('partitionedList', new PartitionedColumnListWithDeferredRendering(this.attr('bits')));
 		this.loadNextPage();
+
+		console.log('aaa')
 	},
 	loadNextPage : function(){
 		var self = this;
 		var params;
 		if(this.attr('hasNextPage')){
 			this.attr('isLoading', true);
+
+			params = this.attr('params').attr();
+
 
 			BitModel.findAll(params).then(function(data){
 				can.batch.start();
@@ -94,6 +99,7 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 
 				self.attr('params.offset', self.attr('params.offset') + data.length);
 				self.attr('isLoading', false);
+				self.attr('bits').push.apply(self.attr('bits'), data);
 				
 				can.batch.stop();
 			}, function(){
