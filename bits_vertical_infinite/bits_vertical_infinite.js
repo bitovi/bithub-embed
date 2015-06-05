@@ -2,9 +2,11 @@ import can from "can/";
 import initView from "./bits_vertical_infinite.stache!";
 import _throttle from "lodash/function/throttle";
 import PartitionedColumnList from "./partitioned_column_list";
+import BitModel from "models/bit";
 
 import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
+import "can/map/define/";
 import "bit/";
 
 var CARD_MIN_WIDTH = 300;
@@ -57,8 +59,50 @@ var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
 });
 
 export var BitsVerticalInfiniteVM = can.Map.extend({
+	bitTag: 'bh-bit',
+	hasNextPage: true,
+	isLoading: false,
+	define : {
+		params : {
+			value : function(){
+				return new can.Map();
+			},
+			get : function(lastSetValue){
+				lastSetValue = lastSetValue || new can.Map();
+				lastSetValue.attr('offset', lastSetValue.offset || this.attr('bits').length || 0);
+				lastSetValue.attr('limit', lastSetValue.limit || this.attr('partitionedList.PER_PAGE'));
+				return lastSetValue;
+			}
+		}
+	},
 	init : function(){
 		this.attr('partitionedList', new PartitionedColumnListWithDeferredRendering(this.attr('bits')));
+		this.loadNextPage();
+	},
+	loadNextPage : function(){
+		var self = this;
+		var params;
+		if(this.attr('hasNextPage')){
+			this.attr('isLoading', true);
+
+			BitModel.findAll(params).then(function(data){
+				can.batch.start();
+				
+				if(data.length < self.attr('params.limit')){
+					self.attr('hasNextPage', false);
+				}
+
+				self.attr('params.offset', self.attr('params.offset') + data.length);
+				self.attr('isLoading', false);
+				
+				can.batch.stop();
+			}, function(){
+				self.attr({
+					isLoading: false,
+					hasNextPage: false
+				});
+			});
+		}
 	}
 });
 
@@ -97,7 +141,7 @@ can.Component.extend({
 				partitionedList.nextPage();
 			} else {
 				partitionedList.setLimitAndFillColumns(Infinity);
-				this.element.trigger('bits:nextPage');
+				this.scope.loadNextPage();
 			}
 		},
 		scrollHandler : function(){
@@ -144,6 +188,11 @@ can.Component.extend({
 				result.push(opts.fn(opts.scope.add({items: columns[i]})));
 			}
 			return result;
+		},
+		renderCard : function(bit, opts){
+			var tag = this.attr('bitTag');
+			var template = can.stache('<' + tag + ' bit="{bit}" state="{state}"></' + tag + '>');
+			return template(opts.scope.add({bit: bit}));
 		}
 	}
 });

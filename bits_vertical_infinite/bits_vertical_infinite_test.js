@@ -204,6 +204,8 @@ QUnit.test("Rendering", function(){
 			end = 50;
 		}
 
+		console.log('REQ bits:nextPage');
+
 		bits.push.apply(bits, fixtureData.data.slice(start, end));
 	});
 
@@ -224,7 +226,7 @@ QUnit.test("Rendering", function(){
 		return minHeightCalculated;
 	}, 10000);
 	
-	F.wait(1, function(){
+	F.wait(10000, function(){
 		scrollHeight = $('bh-bits-vertical-infinite')[0].scrollHeight;
 		F('bh-bits-vertical-infinite').scroll('top', scrollHeight);
 		F('bh-bit').size(40, '40 cards is rendered on scroll');
@@ -233,25 +235,25 @@ QUnit.test("Rendering", function(){
 	F('bh-bits-vertical-infinite').scroll('top', 0);
 	F('bh-bit').size(10, 'When scrolled to top only 10 items is rendered (One page)');
 
-	F.wait(1000, function(){
+	F.wait(10000, function(){
 		scrollHeight = $('bh-bits-vertical-infinite')[0].scrollHeight;
 		F('bh-bits-vertical-infinite').scroll('top', scrollHeight);
 		F('bh-bit').size(20, '20 cards are rendered (Two pages)');
 	});
 
-	F.wait(1000, function(){
+	F.wait(10000, function(){
 		scrollHeight = $('bh-bits-vertical-infinite')[0].scrollHeight;
 		F('bh-bits-vertical-infinite').scroll('top', scrollHeight);
 		F('bh-bit').size(30, '30 cards are rendered (Three pages)');
 	});
 
-	F.wait(1000, function(){
+	F.wait(10000, function(){
 		scrollHeight = $('bh-bits-vertical-infinite')[0].scrollHeight;
 		F('bh-bits-vertical-infinite').scroll('top', scrollHeight);
 		F('bh-bit').size(40, '40 cards are rendered (Four pages)');
 	});
 	
-	F.wait(1000, function(){
+	F.wait(10000, function(){
 		scrollHeight = $('bh-bits-vertical-infinite')[0].scrollHeight;
 		F('bh-bits-vertical-infinite').scroll('top', scrollHeight);
 		F('bh-bit').size(50, '50 cards are rendered (New data is requested from server)');

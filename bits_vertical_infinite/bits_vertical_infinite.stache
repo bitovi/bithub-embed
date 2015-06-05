@@ -2,7 +2,7 @@
 	{{#eachColumn}}
 		<div class="column">
 			{{#each items}}
-				<bh-bit bit="{.}" state="{state}"></bh-bit>
+        {{{ renderCard this }}}
 			{{/each}}
 		</div>
 	{{/eachColumn}}
