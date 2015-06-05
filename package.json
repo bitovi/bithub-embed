@@ -12,7 +12,8 @@
     "lodash-amd": "^3.9.3",
     "jquery": "^2.1.4",
     "can": "^2.2.6",
-    "font-awesome": "^4.3.0"
+    "font-awesome": "^4.3.0",
+    "bootstrap": "^3.3.4"
   },
   "devDependencies": {
     "steal-tools": "^0.10.6",
