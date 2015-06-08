@@ -78,8 +78,6 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 	init : function(){
 		this.attr('partitionedList', new PartitionedColumnListWithDeferredRendering(this.attr('bits')));
 		this.loadNextPage();
-
-		console.log('aaa')
 	},
 	loadNextPage : function(){
 		var self = this;
@@ -118,8 +116,8 @@ can.Component.extend({
 	scope : BitsVerticalInfiniteVM,
 	events : {
 		inserted : function(){
-			this.calculateColumnCount();
 			this.element.on('scroll', _throttle(this.proxy('scrollHandler'), 200));
+			setTimeout(this.proxy('calculateColumnCount'), 1);
 		},
 		"{window} resize" : "calculateColumnCount",
 		calculateColumnCount : function(){
