@@ -3,6 +3,9 @@ import _map from "lodash/collection/map";
 import _reduce from "lodash/collection/reduce";
 import "can/construct/proxy/";
 
+import "./bits_vertical_infinite.less!";
+
+
 var makeColumns = function(count){
 	return _map(Array(count), () => { return []; });
 };

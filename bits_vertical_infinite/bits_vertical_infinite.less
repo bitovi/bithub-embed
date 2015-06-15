@@ -1,10 +1,50 @@
+@import "../style/embed.less";
+
 bh-bits-vertical-infinite {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding-bottom: 20px;
+		.clearfix;
+		.bit-content {
+				.bit-content--caption {
+						overflow: hidden;
+				}
+				
+				img {
+						max-width: 100%;
+				}
+		}
+		.loader {
+				clear: both;
+				font-size: 300%;
+				margin: 0;
+				padding: 20px 0;
+				text-align: center;
+				color: #666;
+		}
+		.column {
+				float: left;
+		}
+		.columns-1 .column {
+				width: 100%;
+		}
+		.columns-2 .column {
+				width: 50%;
+		}
+		.columns-3 .column {
+				width: 33.3%;
+		}
+		.columns-4 .column {
+				width: 25%;
+		}
+		.columns-5 .column {
+				width: 20%;
+		}
+
 }
