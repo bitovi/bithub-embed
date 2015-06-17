@@ -1,0 +1,3 @@
+{{#if bit.images.length}}
+  <img src="{{bit.images.0.url}}">
+{{/if}}
