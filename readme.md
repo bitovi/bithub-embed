@@ -40,7 +40,7 @@ Bit Component (located in the `bit` folder) takes care of displaying one item in
 2. `image-gallery` - If an item has images in it, `image-gallery` component creates the image gallery
 3. `share-bit` - Displays the share buttons
 
-When an item containing images is rendered, `bit` component will first wait for all the images to load before displaying the card content. Until that happens the loading animation is shown.
+When an item containing images is rendered, `bit` component will first wait for all the images to load before displaying the card content. Until that happens the loading animation is shown. In the `examples` folder you can find two custom implementations of the bit components.
 
 
 # Bits Vertical Infinite Component
