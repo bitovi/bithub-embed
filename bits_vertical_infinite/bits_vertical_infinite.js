@@ -117,7 +117,7 @@ can.Component.extend({
 	events : {
 		inserted : function(){
 			this.element.on('scroll', _throttle(this.proxy('scrollHandler'), 200));
-			setTimeout(this.proxy('calculateColumnCount'), 1);
+			setTimeout(this.proxy('calculateColumnCount'), 100);
 		},
 		"{window} resize" : "calculateColumnCount",
 		calculateColumnCount : function(){
