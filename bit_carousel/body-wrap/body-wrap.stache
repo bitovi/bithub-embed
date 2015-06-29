@@ -1,0 +1,6 @@
+<div class="body-wrap {{#unless isExpanded}}collapsed{{/unless}}">
+	<content></content>
+</div>
+	<div class="expand-collapse {{#if isExpanded}}no-gradient{{/if}} {{#unless isTooTall}}hidden-bar{{/unless}}" can-click="toggleExpanded">
+		<i class="fa fa-chevron-{{#if isExpanded}}up{{else}}down{{/if}}"></i>
+	</div>
