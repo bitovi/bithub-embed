@@ -12,11 +12,8 @@ import "../bit/";
 var CARD_MIN_WIDTH = 300;
 
 var calculateColumnCount = function(el){
-	var width = el && el.width() || 0;
-	if(width < CARD_MIN_WIDTH) {
-		return 1;
-	}
-	return Math.min(5, Math.floor(width / CARD_MIN_WIDTH));
+	var width = el && el.closest('body').width() || 0;
+	return Math.max(1, Math.min(5, Math.floor(width / CARD_MIN_WIDTH)));
 };
 
 var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
