@@ -118,7 +118,10 @@ can.Component.extend({
 		},
 		"{window} resize" : "calculateColumnCount",
 		calculateColumnCount : function(){
-			setTimeout(() => {
+			var self = this;
+
+			clearTimeout(this.__calculateColumnCountTimeout);
+			this.__calculateColumnCountTimeout = setTimeout(() => {
 				var partitionedList = this.scope.attr('partitionedList');
 				var currentColumnCount = partitionedList.columnCount();
 				var newColumnCount =  calculateColumnCount(this.element);
@@ -126,6 +129,9 @@ can.Component.extend({
 				if(currentColumnCount !== newColumnCount){
 					partitionedList.resetColumns(newColumnCount, true);
 				}
+				
+				self.__calculateColumnCountTimeout = setTimeout(self.proxy('calculateColumnCount'), 1000);
+
 			}, 1);
 		},
 		nextPage : function(){
