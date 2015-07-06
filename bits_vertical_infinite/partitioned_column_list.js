@@ -45,7 +45,7 @@ export default can.Map.extend({
 			__columns : [],
 			__currentColumn : 0,
 			__currentPrependColumn : 0,
-			__columnCount : 1,
+			__columnCount : 0,
 			__limit : Infinity,
 			__prependPaused: false,
 		});
