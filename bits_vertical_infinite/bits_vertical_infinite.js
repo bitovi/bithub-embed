@@ -127,7 +127,7 @@ can.Component.extend({
 	scope : BitsVerticalInfiniteVM,
 	events : {
 		init: function(){
-			this.__cookieName = (this.attr('state.tenant') || "") + 'seen-bits';
+			this.__cookieName = (this.scope.attr('state.tenant') || "") + 'seen-bits';
 			this.__seenBits = cookie(this.__cookieName).split(',');
 		},
 		inserted : function(){
@@ -201,6 +201,7 @@ can.Component.extend({
 			elements = elements || this.element.find(this.scope.bitTag + ':not(.was-seen):not(.loading)');
 
 			elements.each(function(){
+
 				var rect = this.getBoundingClientRect();
 				var top = rect.top;
 				var height = rect.height;
@@ -211,6 +212,7 @@ can.Component.extend({
 				} else if(containerHeight - top - height > 0){
 					isSeen = true;
 				}
+
 				if(isSeen && !$el.find('.loading').length){
 					
 					self.markAsSeen($el.data('bitId'));
@@ -223,11 +225,10 @@ can.Component.extend({
 
 			if(this.__seenBits.indexOf(id+"") === -1){
 				this.__seenBits.push(id);
+				this.__markAsSeenTimeout = setTimeout(function(){
+					cookie(self.__cookieName, self.__seenBits.join(','), 60*60*24*365);
+				}, 100);
 			}
-			
-			this.__markAsSeenTimeout = setTimeout(function(){
-				cookie(this.__cookieName, self.__seenBits.join(','), 60*60*24*365);
-			}, 100);
 		},
 		calculateMinHeight : function(){
 			if(!this.element){
