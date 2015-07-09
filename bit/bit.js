@@ -105,6 +105,8 @@ can.Component.extend({
 	events : {
 		inserted : function(){
 			var bit = this.scope.attr('bit');
+			
+			this.element.data('bitId', bit.attr('id'));
 
 			if(!bit.attr('@pendingRender')){
 				this.__initTimeout = setTimeout(this.proxy('initImages'));

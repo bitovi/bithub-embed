@@ -1,0 +1,101 @@
+bh-bits-table-view {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    .table {
+        td {
+            border: 1px solid #ccc;
+            border-top-width: 3px;
+        }
+        .bit-row {
+            td {
+                padding: 10px 10px;
+            }
+            
+            &:hover {
+                background: #f6f6f6;
+            }
+        }
+        td.feed-icon-cell, td.author-avatar-cell {
+            vertical-align: top;
+            width: 52px;
+        }
+        td.image-gallery-cell {
+            width: 200px;
+            padding: 0;
+            vertical-align: top;
+            bh-image-gallery {
+                margin: 0;
+                width: 100%;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+        td.content-cell {
+            vertical-align: top;
+            padding: 0;
+            overflow: hidden;
+            bh-body-wrap {
+                .body-wrap {
+                    padding: 0 10px;
+                }
+            }
+        }
+        td.actions-cell {
+            padding: 0;
+            width: 201px;
+            vertical-align: top;
+            .pin, .disapprove-approve {
+                float: left;
+                width: 100px;
+            }
+            .action-is {
+                background: #666;
+                cursor: pointer;
+                padding: 10px 0;
+                height: 76px;
+                text-align: center;
+                color: white;
+                &:hover {
+                    background: #333;
+                }
+                img {
+                    height: 32px;
+                    margin: 0 auto;
+                    display: block;
+                }
+            }
+        }
+    }
+    
+    .social-icon {
+        width: 32px;
+				height: 32px;
+        display: block;
+				img {
+						width: 100%;
+						height: 100%;
+				}
+
+    }
+    .date-separator {
+        padding: 10px;
+        background: #ccc;
+        text-align: center;
+        font-weight: bold;
+    }
+    .author-updated-at {
+        margin: 0 0 10px;
+        background: #eee;
+        color: #444;
+        font-size: 12px;
+        padding: 5px 10px;
+        
+
+    }
+}

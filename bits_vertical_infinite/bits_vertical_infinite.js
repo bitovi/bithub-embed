@@ -4,6 +4,7 @@ import _throttle from "lodash/function/throttle";
 import PartitionedColumnList from "./partitioned_column_list";
 import BitModel from "models/bit";
 
+
 import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";
@@ -14,6 +15,19 @@ var CARD_MIN_WIDTH = 300;
 var calculateColumnCount = function(el){
 	var width = el && el.closest('body').width() || 0;
 	return Math.max(1, Math.min(5, Math.floor(width / CARD_MIN_WIDTH)));
+};
+
+var cookie = function(name, value, ttl, path, domain, secure) {
+
+	if (arguments.length > 1) {
+		return document.cookie = name + "=" + encodeURIComponent(value) +
+			(ttl ? "; expires=" + new Date(+new Date()+(ttl*1000)).toUTCString() : "") +
+			(path   ? "; path=" + path : "") +
+			(domain ? "; domain=" + domain : "") +
+			(secure ? "; secure" : "");
+	}
+
+	return decodeURIComponent((("; "+document.cookie).split("; "+name+"=")[1]||"").split(";")[0]);
 };
 
 var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
@@ -112,6 +126,10 @@ can.Component.extend({
 	template : initView,
 	scope : BitsVerticalInfiniteVM,
 	events : {
+		init: function(){
+			this.__cookieName = (this.attr('state.tenant') || "") + 'seen-bits';
+			this.__seenBits = cookie(this.__cookieName).split(',');
+		},
 		inserted : function(){
 			this.element.on('scroll', _throttle(this.proxy('scrollHandler'), 200));
 			setTimeout(this.proxy('calculateColumnCount'), 100);
@@ -161,6 +179,8 @@ can.Component.extend({
 			
 			this.element.trigger('interaction:scroll', [this.scope.attr('state.hubId')]);
 
+			this.calculateSeen();
+
 			if(scrollTop === 0){
 				partitionedList.resetFromTopIfNeeded();
 				setTimeout(this.proxy('calculateMinHeight'), 1);
@@ -170,6 +190,44 @@ can.Component.extend({
 					this.nextPage();
 				}
 			}
+		},
+		calculateSeen: function(elements){
+			if(!this.scope.attr('state').isAdmin()){
+				return;
+			}
+
+			var containerHeight = this.element.height();
+			var self = this;
+			elements = elements || this.element.find(this.scope.bitTag + ':not(.was-seen):not(.loading)');
+
+			elements.each(function(){
+				var rect = this.getBoundingClientRect();
+				var top = rect.top;
+				var height = rect.height;
+				var isSeen = false;
+				var $el = $(this);
+				if(top < 0){
+					isSeen = true;
+				} else if(containerHeight - top - height > 0){
+					isSeen = true;
+				}
+				if(isSeen && !$el.find('.loading').length){
+					
+					self.markAsSeen($el.data('bitId'));
+				}
+			});
+		},
+		markAsSeen: function(id){
+			var self = this;
+			clearTimeout(this.__markAsSeenTimeout);
+
+			if(this.__seenBits.indexOf(id+"") === -1){
+				this.__seenBits.push(id);
+			}
+			
+			this.__markAsSeenTimeout = setTimeout(function(){
+				cookie(this.__cookieName, self.__seenBits.join(','), 60*60*24*365);
+			}, 100);
 		},
 		calculateMinHeight : function(){
 			if(!this.element){
@@ -183,7 +241,21 @@ can.Component.extend({
 			delete this.__minHeightTriggeredReq;
 			this.__minHeight = minHeight;
 		},
-		"bit:loaded" : 'calculateMinHeight'
+		"bit:loaded" : function(el, ev){
+			var $el = $(ev.target);
+			var id = $el.data('bitId');
+
+			this.calculateMinHeight();
+			
+			if(this.scope.attr('state').isAdmin()){
+				if(this.__seenBits.indexOf(id + "") > -1){
+					$el.addClass('was-seen');
+				} else {
+					this.calculateSeen($el);
+				}
+			}
+			
+		}
 	},
 	helpers : {
 		eachColumn : function(opts){

@@ -1,11 +1,22 @@
 import can from "can/";
 import moment from "moment";
 
+import "can/map/define/";
+
 var Bit = can.Model.extend({
 	resource : '/api/v3/embeds/{hubId}/entities',
 }, {
-	formattedThreadUpdatedAt : function(){
-		return moment(this.attr('thread_updated_at')).format('LL');
+	define : {
+		thread_updated_at: {
+			set : function(val){
+				var momentThreadUpdatedAt = moment(val);
+				this.attr({
+					formattedThreadUpdatedAt: momentThreadUpdatedAt.format('LL'),
+					formattedThreadUpdatedAtDate: momentThreadUpdatedAt.format('YYYY-MM-DD')
+				});
+				return val;
+			}
+		}
 	},
 	isTumblrImage : function(){
 		return this.isPhoto() && this.isTumblr();

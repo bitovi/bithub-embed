@@ -1,0 +1,74 @@
+<table class="table">
+  {{#each groupedBits}}
+    <tr>
+      <td colspan="5" class="date-separator">
+        {{formattedDateSeparator @key}}
+      </td>
+    </tr>
+    {{#each this}}
+      <tr class="bit-row">
+        <td class="feed-icon-cell">
+        	<a href="{{url}}" class="social-icon">
+						<img src="{{state.assetRoot}}images/social-empty/{{feed_name}}.png">
+					</a>
+        </td>
+        <td class="author-avatar-cell">
+          {{#author.avatar_url}}
+						<a href="{{url}}">
+							<img class="bit-avatar--img img-responsive" src="{{.}}" />
+						</a>
+					{{/author.avatar_url}}
+        </td>
+        <td class="image-gallery-cell">
+          {{#if images.length}}
+						<bh-image-gallery images="{images}"></bh-image-gallery>
+					{{/if}}
+        </td>
+        <td class="content-cell">
+          <div class="author-updated-at">
+            {{#author.id}}
+							<span class="bit-authorName"><a href="{{url}}">{{.}}</a></span>
+						{{/author.id}}
+						{{#unless isTwitterFollow}}
+              / 
+							<span class="bit-created-at">
+								{{formattedThreadUpdatedAt}}
+							</span>
+						{{/unless}}
+          </div>
+        	<bh-body-wrap class="short">
+						<h4>{{{ formattedTitle title }}}</h4>
+						{{#if body}}
+							<div class="body-inner-wrap">{{{ body }}}</div>
+						{{/if}}
+					</bh-body-wrap>
+          
+        </td>
+        <td class="actions-cell">
+          <div class="disapprove-approve" can-click="toggleApproveBit">
+						<div class="action-is">
+							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_approved}}block{{else}}approve{{/is_approved}}.png"/>
+							{{#is_approved}}
+								Block
+							{{else}}
+								Approve
+							{{/is_approved}}
+						</div>
+					</div>
+					
+					<div class="pin" can-click="togglePinBit">
+						<div class="action-is">
+							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_pinned}}unpin{{else}}pin{{/is_pinned}}.png"/>
+							{{#is_pinned}}
+								Unpin
+							{{else}}
+								Pin
+							{{/is_pinned}}
+						</div>
+					</div>
+				  </div>
+        </td>
+      </tr>
+    {{/each}}
+  {{/each}}
+</table>
