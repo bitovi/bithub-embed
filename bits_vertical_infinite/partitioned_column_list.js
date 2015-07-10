@@ -153,7 +153,11 @@ export default can.Map.extend({
 			}
 		}
 
-		this.attr('__currentColumn', currentColumn);
+		this.attr({
+			__columns: columns,
+			currentColumn: currentColumn
+		});
+
 		can.batch.stop();
 	},
 	prependImmediately : function(newData){
