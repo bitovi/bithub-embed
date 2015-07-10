@@ -140,11 +140,13 @@ export default can.Map.extend({
 		var calculateCurrent = makeCalculateCurrent(currentColumn, columnCount);
 		var appendingData = newData ? newData : allData;
 
-		can.batch.start();
 		
 		if(!columnCount){
 			return;
 		}
+		
+		can.batch.start();
+
 
 		for(var i = 0; i < appendingData.length; i++){
 			if(limit === Infinity || totalCount(columns) < limit){
