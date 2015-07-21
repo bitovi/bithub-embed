@@ -257,7 +257,7 @@ export default can.Map.extend({
 	},
 	resetFromTopIfNeeded : function(){
 		can.batch.start();
-		if(this.attr('__dataAddedWhilePrependPaused')){
+		if(this.dataWasAddedWhilePrependWasPaused()){
 			this.attr('__limit', this.PER_PAGE);
 			this.resetColumns();
 		} else {
@@ -265,5 +265,8 @@ export default can.Map.extend({
 		}
 		this.prependPaused(false);
 		can.batch.stop();
+	},
+	dataWasAddedWhilePrependWasPaused: function(){
+		return this.attr('__dataAddedWhilePrependPaused');
 	}
 });

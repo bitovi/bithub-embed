@@ -1,3 +1,7 @@
+{{#if showNewDataNotice}}
+  <div class="new-data-notice">New data was added! <span class="scroll-to-top">Scroll to top to see it.</span></div>
+{{/if}}
+
 <div class="column-wrapper clearfix columns-{{partitionedList.columnCount}}">
 	{{#eachColumn}}
 		<div class="column">

@@ -118,6 +118,9 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 				});
 			});
 		}
+	},
+	showNewDataNotice : function(){
+		return this.attr('state').isAdmin() && this.attr('partitionedList').dataWasAddedWhilePrependWasPaused();
 	}
 });
 
@@ -168,6 +171,9 @@ can.Component.extend({
 				partitionedList.setLimitAndFillColumns(Infinity);
 				this.scope.loadNextPage();
 			}
+		},
+		'.scroll-to-top click' : function(){
+			this.element.scrollTop(0);
 		},
 		scrollHandler : function(){
 			var scrollTop = this.element.scrollTop();
