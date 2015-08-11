@@ -1,4 +1,4 @@
-<div class="carousel-prev" can-click="carouselPrev"></div>
+<div class="carousel-prev" can-click="carouselPrev">&lsaquo;</div>
 <div class="outer-carousel-wrap">
   <div class="inner-carousel-wrap" style="width: {{carouselContentWidth}}px; margin-left: -{{fromLeft}}px">
 	  {{#each bits}}
@@ -13,4 +13,4 @@
     {{/if}}
   </div>
 </div>
-<div class="carousel-next" can-click="carouselNext"></div>
+<div class="carousel-next" can-click="carouselNext">&rsaquo;</div>

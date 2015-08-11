@@ -232,7 +232,7 @@ can.Component.extend({
 			if(this.__seenBits.indexOf(id+"") === -1){
 				this.__seenBits.push(id);
 				this.__markAsSeenTimeout = setTimeout(function(){
-					cookie(self.__cookieName, self.__seenBits.join(','), 60*60*24*365);
+					cookie(self.__cookieName, self.__seenBits.slice(Math.max(self.__seenBits.length - 500, 0)).join(','), 60*60*24*365);
 				}, 100);
 			}
 		},

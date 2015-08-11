@@ -1,4 +1,22 @@
+
+@gray-darker:						 lighten(#000, 13.5%); // #222
+@gray-dark:							 lighten(#000, 20%);	 // #333
+@gray:									 lighten(#000, 33.5%); // #555
+@gray-light:						 lighten(#000, 80.7%); // #777
+@gray-lighter:					 lighten(#000, 93.5%); // #eee
+
+@brand-primary:					#428bca;
+@brand-success:					#5cb85c;
+@brand-info:						#5bc0de;
+@brand-warning:					#f0ad4e;
+@brand-danger:					#d9534f;
+
+// custom brand colors
+@white: #fff;
+
+
 bh-bits-carousel {
+    
     width: 100%;
     display: block;
     position: relative;
@@ -17,10 +35,7 @@ bh-bits-carousel {
             margin-top: 0;
             margin-left: 0;
             height: 100% !important;
-            border: 3px solid #c61400;
-            &.loading {
-                background-image: url(../images/card-loader-brown.gif);
-            }
+            border: 3px solid @gray-light;
         }
         img {
             max-width: 100%;
@@ -34,49 +49,45 @@ bh-bits-carousel {
     }
     .carousel-prev, .carousel-next {
         border-radius: 100%;
-        background: #c61400;
-        color: #4c1e09;
+        background: @gray-light;
         width: 50px;
         height: 50px;
         position: absolute;
         top: 50%;
-        margin-top: -50px;
-        font-size: 25px;
-        line-height: 50px;
+        margin-top: -25px;
+        font-size: 70px;
+        line-height: 37px;
         text-align: center;
         z-index: 100;
         cursor: pointer;
         background-repeat: no-repeat;
         &:hover {
-            background-color: #f30;
+            background-color: @brand-primary;
+            color: white;
         }
     }
 
     .carousel-prev {
         left: 0;
         margin-left: 75px;
-        background-image: url(../images/brown_arrow_left.png);
-        background-position: 40% 50%;
     }
 
     .carousel-next {
         right: 0;
         margin-right: 75px;
-        background-image: url(../images/brown_arrow_right.png);
-        background-position: 60% 50%;
     }
     .loading-wrap {
         width: 390px;
         height: 480px;
         text-align: center;
         float: left;
-        background-image: url(../images/card-loader-brown.gif);
+        background-image: url(../images/card-loader.gif);
         background-position: 50% 50%;
         background-repeat: no-repeat;
         border-radius: 5px;
 		    -moz-border-radius: 5px;
 		    -webkit-border-radius: 5px;
-        border: 3px solid #c61400;
+        border: 3px solid @gray-light;
     }
 }
 
