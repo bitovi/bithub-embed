@@ -31,7 +31,7 @@
 				<div class="bit-content">
 
 					{{#if images.length}}
-						<bh-image-gallery images="{images}"></bh-image-gallery>
+						<bh-image-gallery images="{images}" bit="{this}"></bh-image-gallery>
 					{{/if}}
 
 					{{#if isYoutube}}

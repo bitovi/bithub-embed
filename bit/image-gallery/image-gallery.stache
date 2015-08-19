@@ -1,5 +1,5 @@
 <div class="current-image-wrap">
-	<img src="{{currentImage.url}}">
+	<a href="{{bit.url}}"><img src="{{currentImage.url}}"></a>
 	{{#if currentImage.caption}}
 		<p class="caption">{{ currentImage.caption }}</p>
 	{{/if}}
