@@ -1,0 +1,28 @@
+{{#if showNewDataNotice}}
+  <div class="new-data-notice">New data was added! <span class="scroll-to-top">Scroll to top to see it.</span></div>
+{{/if}}
+
+{{#if shouldRender}}
+  {{#each partitionedLists}}
+    <div class="partitioned-list-wrapper">
+      <div class="date-title">
+        <hr>
+        <span>{{niceDate date}}</span>
+      </div>
+      <div class="column-wrapper clearfix columns-{{partitioned.columnCount}}">
+	      {{#eachColumn partitioned}}
+		      <div class="column">
+			      {{#each items}}
+              {{{ renderCard this }}}
+			      {{/each}}
+		      </div>
+	      {{/eachColumn}}
+      </div>
+    </div>
+  {{/each}}
+{{/if}}
+{{#if isLoading}}
+	<div class="loader">
+		<i class="fa-circle-o-notch fa fa-spin"></i>
+	</div>
+{{/if}}
