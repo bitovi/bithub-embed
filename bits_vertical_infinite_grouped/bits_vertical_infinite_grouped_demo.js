@@ -9,7 +9,13 @@ import "../bit/";
 
 import "../style/embed.less!";
 
-var bitData = new Bit.List(fixtures.data);
+var firstData = fixtures.data.splice(0, 25);
+var bitData = new Bit.List(firstData);
+
+setTimeout(function(){
+	bitData.push.apply(bitData, fixtures.data);
+}, 10000);
+
 
 var template = can.stache('<bh-bits-vertical-infinite-grouped bits={bits} state={state}></bh-bits-vertical-infinite-grouped>');
 
