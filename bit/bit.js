@@ -1,6 +1,7 @@
 import can from "can/";
 import initView from "./bit.stache!";
 import _map from "lodash/collection/map";
+import moment from "moment";
 
 import "./image-gallery/image-gallery";
 import "./body-wrap/body-wrap";
@@ -100,6 +101,10 @@ can.Component.extend({
 				return title;
 			}
 			return "";
+		},
+		formattedQuotedTweetDate : function(date){
+			date = can.isFunction(date) ? date() : date;
+			return moment(date, 'dd MMM DD HH:mm:ss ZZ YYYY').format('LL');
 		}
 	},
 	events : {

@@ -47,6 +47,31 @@
 						{{/if}}
 					</bh-body-wrap>
 					
+          {{#quoted_status}}
+            <div class="quoted-tweet">
+              {{{ title }}}
+              <div class="author-date-wrap bit-footer">
+                {{#author.avatar_url}}
+						<figure class="bit-avatar">
+							<a href="{{url}}">
+								<img class="bit-avatar--img img-responsive" src="{{.}}" />
+							</a>
+						</figure>
+					{{/author.avatar_url}}
+					<figcaption>
+						{{#author.id}}
+							<div class="bit-authorName"><a href="{{url}}">{{.}}</a></div>
+						{{/author.id}}
+						{{#unless isTwitterFollow}}
+							<div class="bit-created-at">
+								{{formattedQuotedTweetDate created_at}}
+							</div>
+						{{/unless}}
+					</figcaption>
+              </div>
+            </div>
+          {{/quoted_status}}
+
 					<bh-share-bit class="{{#if sharePanelOpen}}expanded{{/if}}" card-title="{title}" media="{images.0.url}" url="{url}" bit="{.}" state="{state}"></bh-share-bit>
 				</div>
 				
