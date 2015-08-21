@@ -129,35 +129,28 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 		for(var i = 0; i < elements.length; i++){
 			currentDate = elements[i].attr('formattedThreadUpdatedAtDate');
 			if(this.attr('listDates').indexOf(currentDate) === -1){
-				list = new BitModel.List();
-				partitioned = new PartitionedColumnList(list);
+				partitioned = new PartitionedColumnList();
 				
 				this.attr('listDates').push(currentDate);
 
-				dirtyPartitionedLists.push(partitioned);
 
 				this.attr('partitionedLists').push({
-					list: list,
 					partitioned: partitioned,
 					date: currentDate
 				});
 			} else {
-				list = can.filter(this.attr('partitionedLists'), function(l){
+				partitioned = can.filter(this.attr('partitionedLists'), function(l){
 					return l.attr('date') === currentDate;
 				})[0];
 
-				if(list){
-					partitioned = list.attr('partitioned');
-					if(dirtyPartitionedLists.indexOf(partitioned) === -1){
-						dirtyPartitionedLists.push();
-					}
-					list = list.attr('list');
-				}
+				partitioned = partitioned && partitioned.attr('partitioned');
 
 			}
 			
-			if(list && list.indexOf(elements[i]) === -1){
-				list.push(elements[i]);
+			partitioned.attr('__allData').push(elements[i]);
+			partitioned.append([elements[i]]);
+			if(dirtyPartitionedLists.indexOf(partitioned) === -1){
+				dirtyPartitionedLists.push(partitioned);
 			}
 		}
 
