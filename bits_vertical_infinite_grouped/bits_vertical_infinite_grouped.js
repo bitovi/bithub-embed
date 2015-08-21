@@ -123,6 +123,7 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 	partitionData : function(elements){
 		can.batch.start();
 		var self = this;
+		var dirtyPartitionedLists = [];
 		var currentDate, list, partitioned;
 
 		for(var i = 0; i < elements.length; i++){
@@ -132,6 +133,8 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 				partitioned = new PartitionedColumnList(list);
 				
 				this.attr('listDates').push(currentDate);
+
+				dirtyPartitionedLists.push(partitioned);
 
 				this.attr('partitionedLists').push({
 					list: list,
@@ -143,7 +146,14 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 					return l.attr('date') === currentDate;
 				})[0];
 
-				list = list && list.attr('list');
+				if(list){
+					partitioned = list.attr('partitioned');
+					if(dirtyPartitionedLists.indexOf(partitioned) === -1){
+						dirtyPartitionedLists.push();
+					}
+					list = list.attr('list');
+				}
+
 			}
 			
 			if(list && list.indexOf(elements[i]) === -1){
@@ -153,13 +163,10 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 
 		setTimeout(function(){
 			var currentColumnCount = self.attr('initialColumnCount');
-			var partitionedLists = self.attr('partitionedLists');
 			var partitioned;
-			for(var i = 0; i < partitionedLists.length; i++){
-				partitioned = partitionedLists[i].partitioned;
-				if(partitioned.columnCount() !== currentColumnCount){
-					partitioned.resetColumns(currentColumnCount);
-				}
+			for(var i = 0; i < dirtyPartitionedLists.length; i++){
+				partitioned = dirtyPartitionedLists[i];
+				partitioned.resetColumns(currentColumnCount);
 			}
 		}, 1);
 
@@ -234,7 +241,7 @@ can.Component.extend({
 						partitionedLists[i].partitioned.resetColumns(newColumnCount, true);
 					}
 				}
-			
+				
 				self.scope.attr({
 					shouldRender: true,
 					initialColumnCount: newColumnCount
