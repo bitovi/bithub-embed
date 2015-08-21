@@ -168,6 +168,11 @@ export default can.Map.extend({
 		var currentPrependColumn = this.attr('__currentPrependColumn');
 		var calculateCurrent = makeCalculateCurrent(currentPrependColumn, columnCount);
 		var currentLimit = this.attr('__limit');
+		
+		if(!columnCount){
+			return;
+		}
+
 		can.batch.start();
 		for(var i = 0; i < newData.length; i++){
 			columns[currentPrependColumn].unshift(this.addPending(newData[i], true));

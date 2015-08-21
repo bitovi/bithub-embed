@@ -92,6 +92,8 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 	init : function(){
 		var self = this;
 		var partitionedLists = new can.List();
+		var buffer = [];
+		var bufferSweeper;
 
 		partitionedLists.attr('comparator', function(aList, bList){
 			var a = aList.attr('date');
@@ -103,8 +105,13 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 		this.attr('listDates', []);
 
 		this.attr('bits').on('add', function(ev, elements, index){
-			self.partitionData(elements);
+			clearTimeout(bufferSweeper);
+			bufferSweeper = setTimeout(function(){
+				self.partitionData(buffer.splice(0));
+			}, 10);
+			buffer.push.apply(buffer, elements);
 		});
+		
 		this.attr('bits').on('remove', function(ev, elements, index){
 			
 		});
@@ -114,17 +121,16 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 		this.loadNextPage();
 	},
 	partitionData : function(elements){
-		var currentDate, list, partitioned;
 		can.batch.start();
+		var self = this;
+		var currentDate, list, partitioned;
 
 		for(var i = 0; i < elements.length; i++){
 			currentDate = elements[i].attr('formattedThreadUpdatedAtDate');
 			if(this.attr('listDates').indexOf(currentDate) === -1){
 				list = new BitModel.List();
-				partitioned = new PartitionedColumnListWithDeferredRendering(list);
+				partitioned = new PartitionedColumnList(list);
 				
-				partitioned.resetColumns(this.attr('initialColumnCount'));
-
 				this.attr('listDates').push(currentDate);
 
 				this.attr('partitionedLists').push({
@@ -140,12 +146,25 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 				list = list && list.attr('list');
 			}
 			
-			if(list){
+			if(list && list.indexOf(elements[i]) === -1){
 				list.push(elements[i]);
 			}
 		}
 
+		setTimeout(function(){
+			var currentColumnCount = self.attr('initialColumnCount');
+			var partitionedLists = self.attr('partitionedLists');
+			var partitioned;
+			for(var i = 0; i < partitionedLists.length; i++){
+				partitioned = partitionedLists[i].partitioned;
+				if(partitioned.columnCount() !== currentColumnCount){
+					partitioned.resetColumns(currentColumnCount);
+				}
+			}
+		}, 1);
+
 		can.batch.stop();
+
 	},
 	loadNextPage : function(){
 		var self = this;
@@ -177,7 +196,7 @@ export var BitsVerticalInfiniteGroupedVM = can.Map.extend({
 		}
 	},
 	showNewDataNotice : function(){
-		return this.attr('state').isAdmin() && this.attr('partitionedList').dataWasAddedWhilePrependWasPaused();
+		//return this.attr('state').isAdmin() && this.attr('partitionedList').dataWasAddedWhilePrependWasPaused();
 	}
 });
 
@@ -195,6 +214,7 @@ can.Component.extend({
 			setTimeout(this.proxy('calculateColumnCount'), 100);
 		},
 		"{window} resize" : "calculateColumnCount",
+		"{scope.partitionedLists} change" : "calculateColumnCount",
 		calculateColumnCount : function(){
 			var self = this;
 
@@ -219,13 +239,12 @@ can.Component.extend({
 					shouldRender: true,
 					initialColumnCount: newColumnCount
 				});
+				
 				self.__calculateColumnCountTimeout = setTimeout(self.proxy('calculateColumnCount'), 1000);
 
 			}, 1);
 		},
 		nextPage : function(){
-			var partitionedList = this.scope.attr('partitionedList');
-			
 			// If we already made a request at this scroll height
 			if(this.__minHeight === this.__minHeightTriggeredReq){
 				return;

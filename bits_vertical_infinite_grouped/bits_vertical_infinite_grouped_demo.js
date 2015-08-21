@@ -10,12 +10,15 @@ import "../bit/";
 import "../style/embed.less!";
 
 var firstData = fixtures.data.splice(0, 25);
-var bitData = new Bit.List(firstData);
+var bitData = new Bit.List();
+
+setTimeout(function(){
+	bitData.push.apply(bitData, firstData);
+}, 100);
 
 setTimeout(function(){
 	bitData.push.apply(bitData, fixtures.data);
-}, 10000);
-
+}, 1000);
 
 var template = can.stache('<bh-bits-vertical-infinite-grouped bits={bits} state={state}></bh-bits-vertical-infinite-grouped>');
 
