@@ -231,7 +231,11 @@ can.Component.extend({
 				
 				if(currentColumnCount !== newColumnCount){
 					for(var i = 0; i < partitionedLists.length; i++){
-						partitionedLists[i].partitioned.resetColumns(newColumnCount, true);
+						(function(j){
+							setTimeout(function(){
+								partitionedLists[j].partitioned.resetColumns(newColumnCount, true);
+							});
+						})(i);
 					}
 				}
 				
