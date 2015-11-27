@@ -1,0 +1,11 @@
+<div class="carousel-outer-wrap">
+  <div class="carousel-wrap owl-carousel owl-theme" {{initCarousel}}>
+
+  </div>
+  {{#each bits}}
+	  <div class="outer-card-wrap" {{addToCarousel}}>
+		  {{{ renderCard this }}}
+	  </div>
+  {{/each}}
+
+</div>
