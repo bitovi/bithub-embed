@@ -79,8 +79,9 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 				return new can.Map();
 			},
 			get : function(lastSetValue){
+				var bits = this.attr('bits');
 				lastSetValue = lastSetValue || new can.Map();
-				lastSetValue.attr('offset', lastSetValue.offset || this.attr('bits').length || 0);
+				lastSetValue.attr('offset', lastSetValue.offset || (bits && bits.length) || 0);
 				lastSetValue.attr('limit', lastSetValue.limit || this.attr('partitionedList.PER_PAGE'));
 				return lastSetValue;
 			}
