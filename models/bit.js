@@ -4,7 +4,7 @@ import moment from "moment";
 import "can/map/define/";
 
 var Bit = can.Model.extend({
-	resource : '/api/v3/embeds/{hubId}/entities',
+	resource : '/api/v4/embeds/{hubId}/entities',
 }, {
 	define : {
 		thread_updated_at: {
@@ -41,27 +41,45 @@ var Bit = can.Model.extend({
 	}
 });
 
-Bit.ACTIONS = ['pin', 'unpin', 'approve', 'disapprove'];
+Bit.DECISIONS = ['pending', 'starred', 'deleted', 'approved'];
 
-var makeBitAction = function(action){
-	var templateUrl = '/api/v3/embeds/{hubId}/entities/{id}/' + action;
+var makeBitAction = function(decision){
+	var templateUrl = '/api/v4/embeds/{hubId}/entities/{id}/decide/?decision={decision}';
 	return function(hubId){
+		var realDecision = decision;
+		var currentDecision = this.attr('decision');
+		
+		if(decision === currentDecision){
+			realDecision = 'pending';
+		}
+
 		var url = can.sub(templateUrl, {
 			hubId : hubId,
-			id : this.attr('id')
+			id : this.attr('id'),
+			decision: realDecision
 		});
 
 		return $.ajax(url, {
 			dataType: 'json',
 			type: 'PUT'
 		}).then(function(data){
-			Bit.model(data);
+			can.trigger(Bit, 'decision', [currentDecision, realDecision]);
+			var bit = Bit.model(data);
+			bit.updated();
 		});
 	};
 };
 
-for(var i = 0; i < Bit.ACTIONS.length; i++){
-	Bit.prototype[Bit.ACTIONS[i]] = makeBitAction(Bit.ACTIONS[i]);
+var makeBitIsDecision = function(decision){
+	return function(){
+		return this.attr('decision') === decision;
+	};
+};
+
+for(var i = 0; i < Bit.DECISIONS.length; i++){
+	Bit.prototype['decide' + can.capitalize(Bit.DECISIONS[i])] = makeBitAction(Bit.DECISIONS[i]);
+	Bit.prototype['is' + can.capitalize(Bit.DECISIONS[i])] = makeBitIsDecision(Bit.DECISIONS[i]);
 }
+
 
 export default Bit;
