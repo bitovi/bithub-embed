@@ -1,6 +1,6 @@
 import can from "can/";
 import initView from "./bit_carousel.stache!";
-import _map from "lodash/collection/map";
+import _map from "lodash-amd/modern/collection/map";
 
 import "./image-gallery/image-gallery";
 import "./body-wrap/body-wrap";

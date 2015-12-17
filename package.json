@@ -11,24 +11,21 @@
   "dependencies": {
     "lodash-amd": "3.9.3",
     "jquery": "2.1.4",
-    "can": "2.2.6",
+    "can": "2.3.7",
     "font-awesome": "4.3.0",
     "bootstrap": "3.3.4",
     "browser-cookie-lite": "1.0.4",
     "owl.carousel": "git+https://github.com/smashingboxes/OwlCarousel2.git"
   },
   "devDependencies": {
-    "steal-tools": "0.10.6",
-    "steal": "0.10.5",
+    "steal-tools": "0.13.0-pre.1",
+    "steal": "0.13.0-pre.4",
     "bootstrap": "3.3.4",
     "steal-qunit": "0.0.4",
     "funcunit": "3.0.0",
     "moment": "2.10.3"
   },
   "system": {
-    "paths": {
-      "lodash/*": "./node_modules/lodash-amd/modern/*.js"
-    }
   },
   "readme": "ERROR: No README data found!",
   "_id": "opensourced-bithub@0.0.0",

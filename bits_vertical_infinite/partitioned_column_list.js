@@ -1,6 +1,6 @@
 import can from "can/";
-import _map from "lodash/collection/map";
-import _reduce from "lodash/collection/reduce";
+import _map from "lodash-amd/modern/collection/map";
+import _reduce from "lodash-amd/modern/collection/reduce";
 import "can/construct/proxy/";
 
 import "./bits_vertical_infinite.less!";

@@ -1,6 +1,6 @@
 import can from "can/";
 import initView from "./bit.stache!";
-import _map from "lodash/collection/map";
+import _map from "lodash-amd/modern/collection/map";
 import moment from "moment";
 
 import "./image-gallery/image-gallery";

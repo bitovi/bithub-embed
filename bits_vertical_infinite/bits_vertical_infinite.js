@@ -1,6 +1,6 @@
 import can from "can/";
 import initView from "./bits_vertical_infinite.stache!";
-import _throttle from "lodash/function/throttle";
+import _throttle from "lodash-amd/modern/function/throttle";
 import PartitionedColumnList from "./partitioned_column_list";
 import BitModel from "models/bit";
 
