@@ -3,9 +3,9 @@
 		<div class="bit-wrap {{#unless @isLoaded}}loading{{/unless}} {{#unless @resolvedHeight}}animate-height{{/unless}} {{pinnedClass}} {{blockedClass}}">
 			{{#if showAdminPanel}}
 				<div class="admin-panel">
-          <div class="moderation approved {{#isApproved}}active-decision{{/isApproved}}">Approve</div>
-          <div class="moderation starred {{#isStarred}}active-decision{{/isStarred}}">Star</div>
-          <div class="moderation deleted {{#isDeleted}}active-decision{{/isDeleted}}">Delete</div>
+          <div class="moderation approved {{#isApproved}}active-decision{{/isApproved}}" can-click="makeApproved">Approve</div>
+          <div class="moderation starred {{#isStarred}}active-decision{{/isStarred}}" can-click="makeStarred">Star</div>
+          <div class="moderation deleted {{#isDeleted}}active-decision{{/isDeleted}}" can-click="makeDeleted">Delete</div>
 				</div>
 			{{/if}}
 			

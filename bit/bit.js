@@ -63,31 +63,31 @@ export var BitVM = can.Map.extend({
 		return bit && !bit.attr('@pendingRender');
 	},
 	blockedClass : function(){
-		if(!!this.attr('state').isAdmin() && !this.attr('bit').attr('is_approved')){
+		if(!!this.attr('state').isAdmin() && this.attr('bit').isDeleted()){
 			return 'blocked';
 		}
 		return "";
 	},
 	pinnedClass : function(){
-		if(!!this.attr('state').isAdmin() && this.attr('bit').attr('is_pinned')){
+		if(!!this.attr('state').isAdmin() && this.attr('bit').isStarred()){
 			return 'pinned';
 		}
 		return "";
 	}
 });
 
-var BIT_ACTIONS = ['pin', 'unpin', 'approve', 'disapprove'];
+var BIT_DECISIONS = ['pending', 'approved', 'starred', 'deleted'];
 
-for(var i = 0; i < BIT_ACTIONS.length; i++){
-	BitVM.prototype[BIT_ACTIONS[i] + 'Bit'] = (function(action){
+for(var i = 0; i < BIT_DECISIONS.length; i++){
+	BitVM.prototype['make' + can.capitalize(BIT_DECISIONS[i])] = (function(action){
 		return function(){
 			var self = this;
-			var def = this.attr('bit')[action](this.attr('state.hubId'));
+			var def = this.attr('bit')['decide' + can.capitalize(action)](this.attr('state.hubId'));
 			def.fail(function(){
 				self.attr('actionFail', action);
 			});
 		};
-	})(BIT_ACTIONS[i]);
+	})(BIT_DECISIONS[i]);
 }
 
 can.Component.extend({
