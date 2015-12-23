@@ -2,14 +2,14 @@
   <div class="new-data-notice">New data was added! <span class="scroll-to-top">Scroll to top to see it.</span></div>
 {{/if}}
 
-<div class="column-wrapper clearfix columns-{{partitionedList.columnCount}}">
-	{{#eachColumn}}
+<div class="column-wrapper clearfix columns-{{columnCount}}">
+	{{#each columns}}
 		<div class="column">
-			{{#each items}}
-        {{{ renderCard this }}}
+			{{#each this}}
+        <bh-bit state="{state}" bit="{this}"></bh-bit>
 			{{/each}}
 		</div>
-	{{/eachColumn}}
+	{{/each}}
 </div>
 {{#if isLoading}}
 	<div class="loader">

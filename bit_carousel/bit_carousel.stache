@@ -1,6 +1,6 @@
 {{#if shouldRender}}
 	{{#bit}}
-		<div class="bit-wrap {{#unless @isLoaded}}loading{{/unless}} {{#unless @resolvedHeight}}animate-height{{/unless}} {{pinnedClass}} {{blockedClass}}">
+		<div class="bit-wrap {{#unless __isLoaded}}loading{{/unless}} {{#unless __resolvedHeight}}animate-height{{/unless}} {{pinnedClass}} {{blockedClass}}">
 			{{#if showAdminPanel}}
 				<div class="admin-panel">
 					<div class="disapprove-approve" can-click="toggleApproveBit">

@@ -9,6 +9,7 @@ import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";
 import "../bit/";
+import  _map from "lodash-amd/modern/collection/map";
 
 var CARD_MIN_WIDTH = 300;
 
@@ -30,49 +31,13 @@ var cookie = function(name, value, ttl, path, domain, secure) {
 	return decodeURIComponent((("; "+document.cookie).split("; "+name+"=")[1]||"").split(";")[0]);
 };
 
-var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
-	addPending : function(item, shouldUnshift){
-		can.batch.start();
-		item.attr('@pendingRender', true);
-
-		this.__pendingItems = this.__pendingItems || [];
-
-		if(shouldUnshift){
-			this.__pendingItems.unshift(item);
-		} else {
-			this.__pendingItems.push(item);
-		}
-		
-		clearTimeout(this.__renderPendingTimeout);
-		this.__renderPendingTimeout = setTimeout(this.proxy('renderPending'), 1);
-		can.batch.stop();
-		return item;
-	},
-	renderPending : function(){
-		var items = this.__pendingItems || [];
-		var renderFn = function(){
-			// We render items in batches of 5 so live binding setup
-			// wouldn't block the scrolling.
-			var toProcess = items.splice(0, 5);
-
-			can.batch.start();
-			for(var i = 0; i < toProcess.length; i++){
-				toProcess[i].attr('@pendingRender', false);
-			}
-			can.batch.stop();
-
-			if(items.length){
-				setTimeout(renderFn, 1);
-			}
-		};
-		setTimeout(renderFn, 1);
-	}
-});
 
 export var BitsVerticalInfiniteVM = can.Map.extend({
 	bitTag: 'bh-bit',
 	hasNextPage: true,
 	isLoading: false,
+	columnCount: 1,
+	perPage: 50,
 	define : {
 		params : {
 			value : function(){
@@ -82,14 +47,17 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 				var bits = this.attr('bits');
 				lastSetValue = lastSetValue || new can.Map();
 				lastSetValue.attr('offset', lastSetValue.offset || (bits && bits.length) || 0);
-				lastSetValue.attr('limit', lastSetValue.limit || this.attr('partitionedList.PER_PAGE'));
+				lastSetValue.attr('limit', lastSetValue.limit || this.attr('perPage'));
 				return lastSetValue;
 			}
 		}
 	},
 	init : function(){
-		this.attr('partitionedList', new PartitionedColumnListWithDeferredRendering(this.attr('bits')));
+		var self = this;
 		this.loadNextPage();
+		window.appendData = function(){
+			self.bits.push.apply(self.bits, self.bits);
+		}
 	},
 	loadNextPage : function(){
 		var self = this;
@@ -120,7 +88,24 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 			});
 		}
 	},
+	columns : function(){
+		var columnCount = this.attr('columnCount');
+		var columns = new can.List(_map(new Array(columnCount), function(){ return []; }));
+		var bits = this.attr('bits');
+		var length = bits.attr('length');
+		var index = 0;
+		for(var i = 0; i < length; i++){
+			columns.attr(index).push(bits[i]);
+			index++;
+			if(index === columnCount){
+				index = 0;
+			}
+		}
+		console.log('COLUMN COUNT', columnCount, columns)
+		return columns;
+	},
 	showNewDataNotice : function(){
+		return false;
 		return this.attr('state').isAdmin() && this.attr('partitionedList').dataWasAddedWhilePrependWasPaused();
 	}
 });
@@ -144,12 +129,11 @@ can.Component.extend({
 
 			clearTimeout(this.__calculateColumnCountTimeout);
 			this.__calculateColumnCountTimeout = setTimeout(() => {
-				var partitionedList = this.scope.attr('partitionedList');
-				var currentColumnCount = partitionedList.columnCount();
+				var currentColumnCount = this.scope.attr('columnCount');
 				var newColumnCount =  calculateColumnCount(this.element);
 				
 				if(currentColumnCount !== newColumnCount){
-					partitionedList.resetColumns(newColumnCount, true);
+					this.scope.attr('columnCount', newColumnCount);
 				}
 				
 				self.__calculateColumnCountTimeout = setTimeout(self.proxy('calculateColumnCount'), 1000);
@@ -157,6 +141,7 @@ can.Component.extend({
 			}, 1);
 		},
 		nextPage : function(){
+			return;
 			var partitionedList = this.scope.attr('partitionedList');
 			
 			// If we already made a request at this scroll height
@@ -189,16 +174,15 @@ can.Component.extend({
 			this.calculateSeen();
 
 			if(scrollTop === 0){
-				partitionedList.resetFromTopIfNeeded();
 				setTimeout(this.proxy('calculateMinHeight'), 1);
 			} else {
-				partitionedList.prependPaused(true);
 				if(onBottom && !isLoading){
 					this.nextPage();
 				}
 			}
 		},
 		calculateSeen: function(elements){
+			return;
 			if(!this.scope.attr('state').isAdmin()){
 				return;
 			}
@@ -227,6 +211,7 @@ can.Component.extend({
 			});
 		},
 		markAsSeen: function(id){
+			return;
 			var self = this;
 			clearTimeout(this.__markAsSeenTimeout);
 
