@@ -3,6 +3,7 @@
 {{/if}}
 
 {{#if shouldRender}}
+
   {{#each partitionedLists}}
     <div class="partitioned-list-wrapper">
       <div class="date-title">
@@ -25,4 +26,8 @@
 	<div class="loader">
 		<i class="fa-circle-o-notch fa fa-spin"></i>
 	</div>
+{{else}}
+  {{#unless bits.length}}
+    <div class="no-items-notice">There are no items in this folder.</div>
+  {{/unless}}
 {{/if}}

@@ -253,56 +253,58 @@ bh-bit {
 						z-index: 10000;
 						color: #bbb;
 						height: 30px;
-						width: 200px;
+						width: 260px;
 						top: 0;
 						left: 50%;
-						margin-left: -100px;
+						margin-left: -130px;
 						border--webkit-border-bottom-right-radius: 3px;
 						-webkit-border-bottom-left-radius: 3px;
 						-moz-border-radius-bottomright: 3px;
 						-moz-border-radius-bottomleft: 3px;
 						border-bottom-right-radius: 3px;
 						border-bottom-left-radius: 3px;
+            font-size: 11px;
+            text-align: center;
 						display: none;
-						.disapprove-approve, .pin {
-								top: 0;
-								width: 50%;
-								height: 100%;
-								position: absolute;
-								cursor: pointer;
-								img {
-										height: 24px;
-										opacity: 0.7;
-										display: inline-block;
-								}
-								.action-is {
-										cursor: pointer;
-										text-align: center;
-										text-transform: uppercase;
-										font-weight: bold;
-										font-size: 12px;
-										line-height: 30px;
-								}
-								&:hover {
-										background: rgba(0,0,0,0.5);
-										color: white;
-										img {
-												opacity: 1;
-										}
-								}
-						}
-						.disapprove-approve {
-								left: 0;
-								-webkit-border-bottom-left-radius: 3px;
-								-moz-border-radius-bottomleft: 3px;
-								border-bottom-left-radius: 3px;
-						}
-						.pin {
-								-webkit-border-bottom-right-radius: 3px;
-								-moz-border-radius-bottomright: 3px;
-								border-bottom-right-radius: 3px;
-								right: 0;
-						}
+						.moderation {
+                float: left;
+                width: 33.333%;
+                font-weight: bold;
+                background-position: 8px 6px;
+                background-repeat: no-repeat;
+                padding-left: 18px;
+                height: 30px;
+                line-height: 30px;
+                cursor: pointer;
+                &:hover,&.active-decision {
+                    color: white;
+                    background-color: black;
+                    background-position: 8px -22px;
+                }
+            }
+            .approved {
+                background-image: url(/images/moderation/approve_new.png);
+						    -webkit-border-bottom-left-radius: 3px;
+						    -moz-border-radius-bottomleft: 3px;
+						    border-bottom-left-radius: 3px;
+            }
+            .starred {
+                background-image: url(/images/moderation/star.png);
+                background-position: 19px 6px;
+                &:hover,&.active-decision {
+                    background-position: 19px -22px;
+                }
+            }
+            .deleted {
+                background-image: url(/images/moderation/delete.png);
+                background-position: 12px 6px;
+                border--webkit-border-bottom-right-radius: 3px;
+						    -moz-border-radius-bottomright: 3px;
+						    border-bottom-right-radius: 3px;
+                &:hover,&.active-decision {
+                    background-position: 12px -22px;
+                }
+            }
 				}
 				.social-icon {
 						float: right;

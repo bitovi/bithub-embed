@@ -3,27 +3,9 @@
 		<div class="bit-wrap {{#unless __isLoaded}}loading{{/unless}} {{#unless __resolvedHeight}}animate-height{{/unless}} {{pinnedClass}} {{blockedClass}}">
 			{{#if showAdminPanel}}
 				<div class="admin-panel">
-					<div class="disapprove-approve" can-click="toggleApproveBit">
-						<div class="action-is">
-							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_approved}}block{{else}}approve{{/is_approved}}.png"/>
-							{{#is_approved}}
-								Block
-							{{else}}
-								Approve
-							{{/is_approved}}
-						</div>
-					</div>
-					
-					<div class="pin" can-click="togglePinBit">
-						<div class="action-is">
-							<img alt="" src="{{state.assetRoot}}images/moderation/{{#is_pinned}}unpin{{else}}pin{{/is_pinned}}.png"/>
-							{{#is_pinned}}
-								Unpin
-							{{else}}
-								Pin
-							{{/is_pinned}}
-						</div>
-					</div>
+          <div class="moderation approved {{#isApproved}}active-decision{{/isApproved}}" can-click="makeApproved">Approve</div>
+          <div class="moderation starred {{#isStarred}}active-decision{{/isStarred}}" can-click="makeStarred">Star</div>
+          <div class="moderation deleted {{#isDeleted}}active-decision{{/isDeleted}}" can-click="makeDeleted">Delete</div>
 				</div>
 			{{/if}}
 			
