@@ -182,7 +182,9 @@ can.Component.extend({
 		doneLoading : function(){
 			var bit = this.scope.attr('bit');
 			if(!bit.attr('__resolvedHeight')){
-				this.element.find('.bit-wrap').height(this.element.find('.bit').height());
+				if(this.element){
+					this.element.find('.bit-wrap').height(this.element.find('.bit').height());
+				}
 			}
 			bit.attr('__isLoaded', true);
 			this.bitLoadedAndRendered();

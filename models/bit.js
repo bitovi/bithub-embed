@@ -1,7 +1,9 @@
 import can from "can/";
 import moment from "moment";
-
 import "can/map/define/";
+import derive from "can-derive";
+
+console.log('DERIVE', derive);
 
 var Bit = can.Model.extend({
 	resource : '/api/v3/embeds/{hubId}/entities',
@@ -63,5 +65,9 @@ var makeBitAction = function(action){
 for(var i = 0; i < Bit.ACTIONS.length; i++){
 	Bit.prototype[Bit.ACTIONS[i]] = makeBitAction(Bit.ACTIONS[i]);
 }
+
+/*Bit.List = Bit.List.extend({
+	filter: derive.List.prototype.filter
+});*/
 
 export default Bit;

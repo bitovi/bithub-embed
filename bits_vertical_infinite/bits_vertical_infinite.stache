@@ -6,7 +6,7 @@
 	{{#each columns}}
 		<div class="column">
 			{{#each this}}
-        <bh-bit state="{state}" bit="{this}"></bh-bit>
+        <bh-bit state="{../../state}" bit="{this}"></bh-bit>
 			{{/each}}
 		</div>
 	{{/each}}

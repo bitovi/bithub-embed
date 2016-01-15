@@ -9,6 +9,7 @@ import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";
 import "../bit/";
+import "can-derive";
 import  _map from "lodash-amd/modern/collection/map";
 
 var CARD_MIN_WIDTH = 300;
@@ -89,9 +90,21 @@ export var BitsVerticalInfiniteVM = can.Map.extend({
 		}
 	},
 	columns : function(){
+		console.log('COULUMNS')
 		var columnCount = this.attr('columnCount');
-		var columns = new can.List(_map(new Array(columnCount), function(){ return []; }));
 		var bits = this.attr('bits');
+		var res = _map(new Array(columnCount), function(val, index){
+			return bits.dFilter(function(item, idx){
+				return idx % columnCount === index;
+			});
+		});
+		
+		window.RES = res;
+
+		console.log(res)
+
+		return res;
+
 		var length = bits.attr('length');
 		var index = 0;
 		for(var i = 0; i < length; i++){
@@ -237,6 +250,8 @@ can.Component.extend({
 		"bit:loaded" : function(el, ev){
 			var $el = $(ev.target);
 			var id = $el.data('bitId');
+
+			console.log('BIT LOADED')
 
 			this.calculateMinHeight();
 			
