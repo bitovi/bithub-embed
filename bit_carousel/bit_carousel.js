@@ -59,7 +59,7 @@ export var BitVM = can.Map.extend({
 	},
 	shouldRender : function(){
 		var bit = this.attr('bit');
-		return bit && !bit.attr('@pendingRender');
+		return bit && !bit.attr('__pendingRender');
 	},
 	blockedClass : function(){
 		if(!!this.attr('state').isAdmin() && !this.attr('bit').attr('is_approved')){
@@ -106,7 +106,7 @@ can.Component.extend({
 		inserted : function(){
 			var bit = this.scope.attr('bit');
 
-			if(!bit.attr('@pendingRender')){
+			if(!bit.attr('__pendingRender')){
 				this.__initTimeout = setTimeout(this.proxy('initImages'));
 			}
 
@@ -116,14 +116,14 @@ can.Component.extend({
 			// we remove the explicit height so bit can be resized based on user's actions.
 			// If bit was already on the page we don't have to wait for all images to load
 			// before removing the height.
-			if(!bit.attr('@resolvedHeight')){
+			if(!bit.attr('__resolvedHeight')){
 				this.element.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', this.proxy('removeExplicitHeight'));
 				
 			} else {
 				this.removeExplicitHeight();
 			}
 		},
-		'{bit} @pendingRender' : function(bit, ev, newVal){
+		'{bit} __pendingRender' : function(bit, ev, newVal){
 			if(newVal === false){
 				setTimeout(() => {
 					if(this.element){
@@ -174,10 +174,10 @@ can.Component.extend({
 		// to make sure that that the transition animation runs.
 		doneLoading : function(){
 			var bit = this.scope.attr('bit');
-			if(!bit.attr('@resolvedHeight')){
+			if(!bit.attr('__resolvedHeight')){
 				this.element.find('.bit-wrap').height(this.element.find('.bit').height());
 			}
-			bit.attr('@isLoaded', true);
+			bit.attr('__isLoaded', true);
 			this.bitLoadedAndRendered();
 		},
 		// When we're done with the height transition remove the explicit height
@@ -185,7 +185,7 @@ can.Component.extend({
 		removeExplicitHeight : function(){
 			var self = this;
 			this.__removeExplicitHeightTimeout = setTimeout(function(){
-				self.scope.attr('bit').attr('@resolvedHeight', true);
+				self.scope.attr('bit').attr('__resolvedHeight', true);
 				if(self.element){
 					self.element.find('.bit-wrap').css('height', 'auto');
 					self.bitLoadedAndRendered();
@@ -194,7 +194,7 @@ can.Component.extend({
 		},
 		bitLoadedAndRendered : function(){
 			var bit = this.scope.attr('bit');
-			var check = bit.attr('@resolvedHeight') && bit.attr('@isLoaded') && !bit.attr('@pendingRender');
+			var check = bit.attr('__resolvedHeight') && bit.attr('__isLoaded') && !bit.attr('__pendingRender');
 
 			if(check){
 				this.element.trigger('bit:loaded');

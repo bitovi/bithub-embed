@@ -2,7 +2,7 @@
   {{#each groupedBits}}
     <tr>
       <td colspan="5" class="date-separator">
-        {{formattedDateSeparator @key}}
+        {{formattedDateSeparator %key}}
       </td>
     </tr>
     {{#each this}}
