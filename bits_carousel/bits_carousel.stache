@@ -1,16 +1,16 @@
-<div class="carousel-prev" can-click="carouselPrev">&lsaquo;</div>
+<div class="carousel-prev" can-click="carouselPrev"></div>
 <div class="outer-carousel-wrap">
   <div class="inner-carousel-wrap" style="width: {{carouselContentWidth}}px; margin-left: -{{fromLeft}}px">
 	  {{#each bits}}
-		  <div class="outer-card-wrap">
+		  <div class="outer-card-wrap" style="width: {{cardWidth}}px">
 			  {{{ renderCard this }}}
 		  </div>
 	  {{/each}}
     {{#if isLoading}}
-      <div class="loading-wrap">
-        Loading
+      <div class="loading-wrap" style="width: {{loadingCardWidth}}px">
+        <div class="image"></div>
       </div>
     {{/if}}
   </div>
 </div>
-<div class="carousel-next" can-click="carouselNext">&rsaquo;</div>
+<div class="carousel-next" can-click="carouselNext"></div>

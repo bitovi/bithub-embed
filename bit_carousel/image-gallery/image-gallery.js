@@ -1,4 +1,4 @@
-import can from "can/";
+import can from "can";
 import initView from "./image-gallery.stache!";
 import "./image-gallery.less!";
 
@@ -13,6 +13,7 @@ can.Component.extend({
 			this.attr('currentImage', img);
 		},
 		hasGallery : function(){
+			return false; 
 			var images = this.attr('images');
 			return images && images.attr('length') > 1;
 		},

@@ -11,39 +11,83 @@
 @brand-danger:          #d9534f;
 
 bh-share-bit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: block;
-    background: @gray-light;
-    border-left: 2px solid @gray-light;
-    border-right: 2px solid @gray-light;
-    height: 0;
-    overflow: hidden;
-    -webkit-transition: height 0.2s;
-	  -moz-transition: height 0.2s;
-	  transition: height 0.2s;
-    i.fa {
-        display: block;
-        float: left;
-        height: 32px;
-        border-radius: 3px;
-        text-align: center;
-        line-height: 32px;
-        cursor: pointer;
-        font-size: 16px;
-        &:hover {
-            background: @brand-primary;
+    background: rgba(0,0,0,0.8);
+
+    .share-buttons-outer-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 45px;
+        .share-buttons-wrap {
+            height: 100%;
+        } 
+        i.fa {
+            display: block;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+            font-size: 32px;
             color: white;
+            width: 50%;
+            height: 33.3333%;
+            position: relative;
+            &:before {
+                display: block;
+                width: 32px;
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -16px;
+                margin-top: -16px;
+            }
+            &:hover {
+                background: @brand-primary;
+                color: white;
+            }
+        }
+        .fa-twitter, .fa-linkedin, .fa-pinterest {
+            border-right: 1px solid #777;
+        }
+        .fa-twitter, .fa-linkedin, .fa-facebook, .fa-google-plus {
+            border-bottom: 1px solid #777;
         }
     }
-    .networks-7, .networks-6 {
-        padding-top: 2px;
+    .close-share-wrap {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45px;
+        background: rgba(0,0,0,0.5);
+        line-height: 25px;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        i.fa {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            line-height: 45px;
+            font-size: 150%;
+            cursor: pointer;
+            &:hover {
+                background: black;
+            }
+            
+        }
     }
-    .networks-7 i.fa {
-        width: 14.2857%;
-    }
-    .networks-6 i.fa {
-        width: 16.66%;
-    }
+    
     &.expanded {
-        height: 35px;
     }
 }

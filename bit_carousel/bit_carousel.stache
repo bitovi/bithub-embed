@@ -46,8 +46,9 @@
 							<div class="body-inner-wrap">{{{ body }}}</div>
 						{{/if}}
 					</bh-body-wrap>
-					
-					<bh-share-bit class="{{#if sharePanelOpen}}expanded{{/if}}" card-title="{title}" media="{images.0.url}" url="{url}" bit="{.}" state="{state}"></bh-share-bit>
+					{{#if sharePanelOpen}}
+					<bh-share-bit class="card-title="{title}" media="{images.0.url}" url="{url}" bit="{.}" state="{state}" is-open="{sharePanelOpen}"></bh-share-bit>
+          {{/if}}
 				</div>
 				
 				<footer class="bit-footer col-sm-12">
@@ -68,10 +69,11 @@
 							</div>
 						{{/unless}}
 					</figcaption>
-					<a href="{{url}}" class="social-icon">
+					
+					<i class="fa fa-share-alt share-panel-toggle {{#if sharePanelOpen}}open{{/if}}" can-click="sharePanelToggle"></i>
+          <a href="{{url}}" class="social-icon">
 						<img src="{{state.assetRoot}}images/social-empty/{{feed_name}}.png">
 					</a>
-					<i class="fa fa-share-alt share-panel-toggle {{#if sharePanelOpen}}open{{/if}}" can-click="sharePanelToggle"></i>
 				</footer>
 			</div>
 			{{#if actionFail}}

@@ -1,4 +1,4 @@
-import can from "can/";
+import can from "can";
 import initView from "./bit_carousel.stache!";
 import _map from "lodash-amd/modern/collection/map";
 
@@ -137,6 +137,7 @@ can.Component.extend({
 			this.imgs = this.element.find('img').toArray();
 			this.imagesToLoadCount = this.imgs.length;
 
+
 			if(this.imgs.length){
 				this.__imgSweeperTimeout = setTimeout(this.proxy('imgSweeper'), 500);
 			} else {
@@ -146,7 +147,7 @@ can.Component.extend({
 		'a click' : function(el, ev){
 			ev.preventDefault();
 			window.open(el.attr('href'));
-			this.element.trigger('interaction:link', [this.scope.attr('state.hubId'), this.scope.attr('bit.id')]);
+			this.element.trigger('interaction:carousel-link', [this.scope.attr('state.hubId'), this.scope.attr('bit.id')]);
 		},
 		// Go through all images and make sure all are loaded or errored
 		// Before calling the `doneLoading` function which will remove the loading class
@@ -207,6 +208,12 @@ can.Component.extend({
 			clearTimeout(this.__initTimeout);
 			clearTimeout(this.__removeExplicitHeightTimeout);
 			return this._super.apply(this, arguments);
+		},
+		'{scope} sharePanelOpen' : function(){
+			var self = this;
+			setTimeout(function(){
+				self.element.trigger('cardExpanded', self.element.height());
+			}, 200);
 		}
 	}
 });
