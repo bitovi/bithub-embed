@@ -1,6 +1,6 @@
 import can from "can";
 import initView from "./bits_carousel.stache!";
-import BitModel from "models/bit";
+import BitModel from "opensourced-bithub/models/bit";
 
 import "./bits_carousel.less!";
 import "can/map/define/";
