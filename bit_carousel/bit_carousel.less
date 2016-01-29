@@ -1,5 +1,5 @@
-@import "~bootstrap/less/mixins.less";
-@import "~bootstrap/less/variables.less";
+@import LOCATE("bootstrap/less/mixins.less");
+@import LOCATE("bootstrap/less/variables.less");
 
 .border-radius (@radius: @baseBorderRadius) {
 		border-radius: @radius;
@@ -30,7 +30,6 @@ bh-bit-carousel {
 				background-color: @white;
 				border: 1px solid @gray-light;
 				overflow: hidden;
-				margin: 20px 10px 0;
 				opacity: 1;
 				-webkit-transition: opacity 0.2s ease-in-out;
 				-moz-transition: opacity 0.2s ease-in-out;
@@ -363,7 +362,6 @@ bh-bit-carousel {
 				}
 		}
     bh-share-bit {
-        position: relative;
         z-index: 100000;
     }
 }

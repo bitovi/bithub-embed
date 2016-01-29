@@ -1,3 +1,18 @@
+/**
+ * Gets HTML markup
+ * <body-wrap >Arbitrary HTML</body-wrap>
+ * 
+ * If scrollHeight is too big .. add expander.
+ * Makes images fit the width of the.
+ * 
+ * Makes any iframes responsive.
+ * 
+ * Cuts off images if they are too big.
+ * 
+ * No element should be wider than card.
+ * 
+ * Manage height.
+ */
 import can from "can";
 import initView from "./body-wrap.stache!";
 import "./body-wrap.less!";

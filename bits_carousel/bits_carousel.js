@@ -8,7 +8,10 @@ import "can/map/define/";
 var getNextClickTS = function(factor){
 	return (new Date()).getTime() + (factor || 5000);
 };
-
+/**
+ * vertical dim -> determined by bits
+ * horizontal -> do its best to fit in with whatever
+ */
 export default can.Component.extend({
 	tag: 'bh-bits-carousel',
 	template: initView,
@@ -102,6 +105,7 @@ export default can.Component.extend({
 			var cardWidth = this.attr('cardWidth');
 			var factor;
 			if(el){
+				// Todo report auto-scroll
 				el.trigger('interaction:carousel-scroll', [this.attr('state.hubId')]);
 				factor = 10000;
 			}
@@ -145,7 +149,7 @@ export default can.Component.extend({
 			var currentTS = (new Date()).getTime();
 			var diff = Math.abs(currentTS - this.scope.nextClickTimeout);
 			if(diff < 100){
-				this.element.find('[can-click="carouselNext"]').click();
+				//this.element.find('[can-click="carouselNext"]').click();
 				this.scope.nextClickTimeout = getNextClickTS();
 			}
 			setTimeout(this.autoClick.bind(this), 100);

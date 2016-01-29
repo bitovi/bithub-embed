@@ -1,3 +1,12 @@
+/**
+ * Make sure we should content when content positions have settled.
+ * 
+ * Can make it animate to it's final height.
+ * 
+ * __resolvedHeight -> everything has loaded ... no more flashes
+ * 
+ * 
+ */
 import can from "can";
 import initView from "./bit_carousel.stache!";
 import _map from "lodash-amd/modern/collection/map";
@@ -28,8 +37,10 @@ var imageStatus = function(img){
 };
 
 export var BitVM = can.Map.extend({
-	actionFail: null,
+	//actionFail: null,
 	sharePanelOpen: false,
+	
+	/*
 	toggleApproveBit : function(){
 		if(this.attr('bit.is_approved')){
 			this.disapproveBit();
@@ -53,14 +64,16 @@ export var BitVM = can.Map.extend({
 	},
 	showAdminPanel : function(){
 		return !!this.attr('state').isAdmin() && !(this.attr('actionFail'));
-	},
+	},*/
+	
 	sharePanelToggle : function(){
 		this.attr('sharePanelOpen', !this.attr('sharePanelOpen'));
 	},
 	shouldRender : function(){
 		var bit = this.attr('bit');
 		return bit && !bit.attr('__pendingRender');
-	},
+	}
+	/*,
 	blockedClass : function(){
 		if(!!this.attr('state').isAdmin() && !this.attr('bit').attr('is_approved')){
 			return 'blocked';
@@ -72,9 +85,11 @@ export var BitVM = can.Map.extend({
 			return 'pinned';
 		}
 		return "";
-	}
+	}*/
 });
 
+
+/*
 var BIT_ACTIONS = ['pin', 'unpin', 'approve', 'disapprove'];
 
 for(var i = 0; i < BIT_ACTIONS.length; i++){
@@ -87,7 +102,7 @@ for(var i = 0; i < BIT_ACTIONS.length; i++){
 			});
 		};
 	})(BIT_ACTIONS[i]);
-}
+}*/
 
 can.Component.extend({
 	tag: 'bh-bit-carousel',
