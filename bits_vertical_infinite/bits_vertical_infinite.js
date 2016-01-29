@@ -4,7 +4,7 @@ import _throttle from "lodash-amd/modern/function/throttle";
 import PartitionedColumnList from "./partitioned_column_list";
 import BitModel from "models/bit";
 
-
+import "../style/embed.less!";
 import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";

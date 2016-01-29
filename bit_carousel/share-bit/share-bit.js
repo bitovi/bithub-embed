@@ -1,6 +1,8 @@
 import can from "can";
 import initView from "./share-bit.stache!";
+import "../../style/embed.less";
 import "./share-bit.less!";
+
 
 var URL_TEMPLATES = {
 	googleplus : "https://plus.google.com/share?hl=en&url={url}",

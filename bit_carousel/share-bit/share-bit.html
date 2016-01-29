@@ -1,0 +1,22 @@
+
+<div style="left: 500px; right: 500px; top: 50px; bottom: 50px; border: solid 1px red; position: fixed;" id="app">
+	
+</div>
+<script type='text/stache' id="template">
+	<bh-share-bit {state}="state" {bit}="bit"
+		media="https://pbs.twimg.com/media/CW_y6rNUAAA4Iil.jpg"
+		url="https://twitter.com/bithubapp/status/680029166159421440"
+		card-title="<h1>Boom</h1>"/>
+</script>
+
+<script src="../../node_modules/steal/steal.js" main="@empty">
+	import "opensourced-bithub/bit_carousel/share-bit/";
+	
+	
+	var frag = can.view("template")({
+		bit: {id: "for reporting"},
+		state: {hubId: "for reporting"}
+	});
+	
+	$("#app").append(frag);
+</script>
