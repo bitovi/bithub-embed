@@ -167,8 +167,8 @@ export default can.Component.extend({
 			clearTimeout(this.__measureWidthTimeout);
 			this.__measureWidthTimeout = setTimeout(function(){
 				var outerWidth = self.element.find('.outer-carousel-wrap').width();
-				var cardCount = Math.floor(outerWidth / this.scope.minCardWidth) || 1;
-				var cardWidth = Math.max(this.scope.minCardWidth, (outerWidth + 10) / cardCount);
+				var cardCount = Math.floor(outerWidth / self.scope.minCardWidth) || 1;
+				var cardWidth = Math.max(self.scope.minCardWidth, (outerWidth + 10) / cardCount);
 				self.scope.attr({
 					carouselWidth: outerWidth,
 					cardWidth: cardWidth,

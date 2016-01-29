@@ -15,7 +15,7 @@
     "bootstrap": "3.3.4",
     "browser-cookie-lite": "1.0.4",
     "owl.carousel": "git+https://github.com/smashingboxes/OwlCarousel2.git",
-    "steal": "0.14.0-pre.4",
+    "steal": "0.14.0-pre.5",
     "bootstrap": "3.3.4",
     "moment": "2.10.3"
   },
