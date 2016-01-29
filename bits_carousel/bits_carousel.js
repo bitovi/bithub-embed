@@ -21,8 +21,7 @@ export default can.Component.extend({
 		isLoading: false,
 		fromLeft: 0,
 		carouselWidth: 0,
-		cardWidth: 220,
-		minCardWidth: 250,
+		
 		nextClickTimeout : null,
 		define : {
 			params : {
@@ -36,6 +35,8 @@ export default can.Component.extend({
 					return lastSetValue;
 				}
 			},
+			cardWidth: {value: 220, type: "number"},
+			minCardWidth: {value: 250, type: "number"},
 		},
 		getBitModel : function(){
 			return this.bitModel || BitModel;
