@@ -5,8 +5,6 @@ import BitModel from "opensourced-bithub/models/bit";
 import "./bits_carousel.less!";
 import "can/map/define/";
 
-var MIN_CARD_WIDTH = 250;
-
 var getNextClickTS = function(factor){
 	return (new Date()).getTime() + (factor || 5000);
 };
@@ -21,6 +19,7 @@ export default can.Component.extend({
 		fromLeft: 0,
 		carouselWidth: 0,
 		cardWidth: 220,
+		minCardWidth: 250,
 		nextClickTimeout : null,
 		define : {
 			params : {
@@ -164,8 +163,8 @@ export default can.Component.extend({
 			clearTimeout(this.__measureWidthTimeout);
 			this.__measureWidthTimeout = setTimeout(function(){
 				var outerWidth = self.element.find('.outer-carousel-wrap').width();
-				var cardCount = Math.floor(outerWidth / MIN_CARD_WIDTH) || 1;
-				var cardWidth = Math.max(MIN_CARD_WIDTH, (outerWidth + 10) / cardCount);
+				var cardCount = Math.floor(outerWidth / this.scope.minCardWidth) || 1;
+				var cardWidth = Math.max(this.scope.minCardWidth, (outerWidth + 10) / cardCount);
 				self.scope.attr({
 					carouselWidth: outerWidth,
 					cardWidth: cardWidth,
