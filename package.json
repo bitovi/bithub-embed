@@ -15,14 +15,14 @@
     "bootstrap": "3.3.4",
     "browser-cookie-lite": "1.0.4",
     "owl.carousel": "git+https://github.com/smashingboxes/OwlCarousel2.git",
-    "steal-tools": "0.13.3",
     "steal": "0.14.0-pre.4",
     "bootstrap": "3.3.4",
     "moment": "2.10.3"
   },
   "devDependencies": {
     "steal-qunit": "0.0.4",
-    "funcunit": "3.0.0"
+    "funcunit": "3.0.0",
+    "steal-tools": "^0.14.0-pre.1"
   },
   "system": {
    "configDependencies": [
