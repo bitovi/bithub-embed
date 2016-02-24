@@ -1,0 +1,67 @@
+<div style="width: 300px; border: solid 1px red" id="app">
+	
+</div>
+<script type='text/stache' id="template">
+	<bh-bit-carousel {state}="state" {bit}="bit"/>
+</script>
+
+<script src="../node_modules/steal/steal.js" main="@empty">
+	import "opensourced-bithub/bit_carousel/";
+	
+	
+	var images = new can.List([{
+		url: "https://pbs.twimg.com/media/CW_y6rNUAAA4Iil.jpg",
+		caption: "something"
+	},
+	{
+		url: "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s640x640/sh0.08/e35/12338735_1676227922649678_32341633_n.jpg",
+		caption: "food"
+	}]);
+	
+	var bit = new can.Map({
+      "service_ids": [
+        61
+      ],
+      "author": {
+        "avatar_url": null,
+        "id": "designclever"
+      },
+      "thread_updated_at": "2015-05-31T02:32:24.000Z",
+      "thread_updated_ts": 1433039544,
+      "updated_at": "2015-06-01T16:43:47.028Z",
+      "created_at": "2015-06-01T16:43:47.028Z",
+      "images": [
+        {
+          "url": "https:\/\/40.media.tumblr.com\/02f509ae0c8ae35e326b27e2de65e6aa\/tumblr_np3fr8D7vg1qkxrtro1_1280.png",
+          "caption": ""
+        },
+        {
+          "url": "https:\/\/41.media.tumblr.com\/be2e05d0c23b95758b9f7a3a14ab2c10\/tumblr_np3fr8D7vg1qkxrtro2_1280.png",
+          "caption": ""
+        },
+        {
+          "url": "https:\/\/36.media.tumblr.com\/cb6a8e1ffaecbc086c0f93e9b456f5b1\/tumblr_np3fr8D7vg1qkxrtro3_1280.png",
+          "caption": ""
+        },
+        {
+          "url": "https:\/\/41.media.tumblr.com\/4ae18501c1d5835482024285ab8d64ad\/tumblr_np3fr8D7vg1qkxrtro4_1280.png",
+          "caption": ""
+        }
+      ],
+      "url": "http:\/\/designclever.tumblr.com\/post\/120315998180\/betype-36-days-36-type-designs-plus-1",
+      "type_name": "photo",
+      "feed_name": "tumblr",
+      "body": null,
+      "title": "<p><a href=\"http:\/\/betype.tumblr.com\/post\/120315679490\/36-days-36-type-designs-plus-1-by-alexander\" class=\"tumblr_blog\">betype<\/a>:<\/p>\n\n<blockquote><p><a href=\"https:\/\/www.behance.net\/gallery\/26221877\/36-Days-36-Type-Designs-(Plus-1)\">\n\n36 Days, 36 Type Designs (Plus 1) by\n\nAlexander Wright<\/a><br\/><\/p><\/blockquote>",
+      "id": 3606
+    });
+	
+	var frag = can.view("template")({
+		state: new can.Map({
+			hubId: 1
+		}),
+		bit: bit
+	});
+	
+	$("#app").append(frag);
+</script>

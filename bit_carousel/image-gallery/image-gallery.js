@@ -1,4 +1,8 @@
-import can from "can/";
+/**
+ * This code was copied from the "bit" image gallery.  However, it is hard-coded as not
+ * acting like a gallery
+ */
+import can from "can";
 import initView from "./image-gallery.stache!";
 import "./image-gallery.less!";
 
@@ -13,6 +17,8 @@ can.Component.extend({
 			this.attr('currentImage', img);
 		},
 		hasGallery : function(){
+			// TODO this is hard coded as not being a gallery
+			return false; 
 			var images = this.attr('images');
 			return images && images.attr('length') > 1;
 		},

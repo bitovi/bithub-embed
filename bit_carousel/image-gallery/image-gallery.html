@@ -1,0 +1,32 @@
+
+<div style="width: 300px; border: solid 1px red" id="app">
+	
+</div>
+<script type='text/stache' id="template">
+	<bh-bit-carousel-image-gallery {images}="images" {bit}="bit"/>
+</script>
+
+<script src="../../node_modules/steal/steal.js" main="@empty">
+	import "opensourced-bithub/bit_carousel/image-gallery/";
+	
+	
+	var images = new can.List([{
+		url: "https://pbs.twimg.com/media/CW_y6rNUAAA4Iil.jpg",
+		caption: "something"
+	},
+	{
+		url: "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s640x640/sh0.08/e35/12338735_1676227922649678_32341633_n.jpg",
+		caption: "food"
+	}]);
+	
+	var bit = {
+		url: "https://twitter.com/bithubapp/status/680029166159421440"
+	};
+	
+	var frag = can.view("template")({
+		images: images,
+		bit: bit
+	});
+	
+	$("#app").append(frag);
+</script>

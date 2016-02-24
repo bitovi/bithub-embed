@@ -15,20 +15,19 @@
     "bootstrap": "3.3.4",
     "browser-cookie-lite": "1.0.4",
     "owl.carousel": "git+https://github.com/smashingboxes/OwlCarousel2.git",
-    "steal-tools": "0.13.1",
-    "steal": "0.13.0",
+    "steal": "0.14.0-pre.5",
     "bootstrap": "3.3.4",
-    "steal-qunit": "0.0.4",
-    "funcunit": "3.0.0",
     "moment": "2.10.3"
   },
+  "devDependencies": {
+    "steal-qunit": "0.0.4",
+    "funcunit": "3.0.0",
+    "steal-tools": "^0.14.0-pre.1"
+  },
   "system": {
+   "configDependencies": [
+     "live-reload"
+   ]
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "opensourced-bithub@0.0.0",
-  "dist": {
-    "shasum": "7a71ee1ecf375fa71004c705012b2c6b019c3d13"
-  },
-  "_resolved": "git+https://github.com/bitovi/bithub-embed#1dc2eeabaa43300010d847cae9eb6853571f77f8",
-  "_from": "git+ssh://git@github.com:bitovi/bithub-embed"
+  "readme": "ERROR: No README data found!"
 }

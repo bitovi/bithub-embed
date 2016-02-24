@@ -1,4 +1,13 @@
-import can from "can/";
+/**
+ * Make sure we should content when content positions have settled.
+ * 
+ * Can make it animate to it's final height.
+ * 
+ * __resolvedHeight -> everything has loaded ... no more flashes
+ * 
+ * 
+ */
+import can from "can";
 import initView from "./bit_carousel.stache!";
 import _map from "lodash-amd/modern/collection/map";
 
@@ -28,8 +37,10 @@ var imageStatus = function(img){
 };
 
 export var BitVM = can.Map.extend({
-	actionFail: null,
+	//actionFail: null,
 	sharePanelOpen: false,
+	
+	/*
 	toggleApproveBit : function(){
 		if(this.attr('bit.is_approved')){
 			this.disapproveBit();
@@ -53,14 +64,16 @@ export var BitVM = can.Map.extend({
 	},
 	showAdminPanel : function(){
 		return !!this.attr('state').isAdmin() && !(this.attr('actionFail'));
-	},
+	},*/
+	
 	sharePanelToggle : function(){
 		this.attr('sharePanelOpen', !this.attr('sharePanelOpen'));
 	},
 	shouldRender : function(){
 		var bit = this.attr('bit');
 		return bit && !bit.attr('__pendingRender');
-	},
+	}
+	/*,
 	blockedClass : function(){
 		if(!!this.attr('state').isAdmin() && !this.attr('bit').attr('is_approved')){
 			return 'blocked';
@@ -72,9 +85,11 @@ export var BitVM = can.Map.extend({
 			return 'pinned';
 		}
 		return "";
-	}
+	}*/
 });
 
+
+/*
 var BIT_ACTIONS = ['pin', 'unpin', 'approve', 'disapprove'];
 
 for(var i = 0; i < BIT_ACTIONS.length; i++){
@@ -87,7 +102,7 @@ for(var i = 0; i < BIT_ACTIONS.length; i++){
 			});
 		};
 	})(BIT_ACTIONS[i]);
-}
+}*/
 
 can.Component.extend({
 	tag: 'bh-bit-carousel',
@@ -137,6 +152,7 @@ can.Component.extend({
 			this.imgs = this.element.find('img').toArray();
 			this.imagesToLoadCount = this.imgs.length;
 
+
 			if(this.imgs.length){
 				this.__imgSweeperTimeout = setTimeout(this.proxy('imgSweeper'), 500);
 			} else {
@@ -146,7 +162,7 @@ can.Component.extend({
 		'a click' : function(el, ev){
 			ev.preventDefault();
 			window.open(el.attr('href'));
-			this.element.trigger('interaction:link', [this.scope.attr('state.hubId'), this.scope.attr('bit.id')]);
+			this.element.trigger('interaction:carousel-link', [this.scope.attr('state.hubId'), this.scope.attr('bit.id')]);
 		},
 		// Go through all images and make sure all are loaded or errored
 		// Before calling the `doneLoading` function which will remove the loading class
@@ -207,6 +223,12 @@ can.Component.extend({
 			clearTimeout(this.__initTimeout);
 			clearTimeout(this.__removeExplicitHeightTimeout);
 			return this._super.apply(this, arguments);
+		},
+		'{scope} sharePanelOpen' : function(){
+			var self = this;
+			setTimeout(function(){
+				self.element.trigger('cardExpanded', self.element.height());
+			}, 200);
 		}
 	}
 });

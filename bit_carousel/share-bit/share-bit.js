@@ -1,6 +1,8 @@
-import can from "can/";
+import can from "can";
 import initView from "./share-bit.stache!";
+import "../../style/embed.less";
 import "./share-bit.less!";
+
 
 var URL_TEMPLATES = {
 	googleplus : "https://plus.google.com/share?hl=en&url={url}",
@@ -75,6 +77,9 @@ can.Component.extend({
 	scope : {
 		networksClass : function(){
 			return this.media ? 'networks-7' : 'networks-6';
+		},
+		closePanel : function(){
+			this.attr('isOpen', false);
 		}
 	},
 	events: {
@@ -91,7 +96,7 @@ can.Component.extend({
 				title = title.replace(/#/g, '');
 			}
 
-			this.element.trigger('interaction:share', [this.scope.attr('state.hubId'), this.scope.attr('bit.id'), network]);
+			this.element.trigger('interaction:carousel-share', [this.scope.attr('state.hubId'), this.scope.attr('bit.id'), network]);
 			popup[network]({
 				title: title,
 				media: this.scope.media,

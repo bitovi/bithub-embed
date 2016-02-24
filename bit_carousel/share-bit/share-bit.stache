@@ -1,11 +1,15 @@
-<div class="{{networksClass}}">
-	<i class="fa fa-twitter" data-network="twitter"></i>
-	<i class="fa fa-facebook" data-network="facebook"></i>
-	{{#if media}}
-		<i class="fa fa-pinterest" data-network="pinterest"></i>
-	{{/if}}
-	<i class="fa fa-linkedin" data-network="linkedin"></i>
-	<i class="fa fa-google-plus" data-network="googleplus"></i>
-	<i class="fa fa-delicious" data-network="delicious"></i>
-	<i class="fa fa-stumbleupon" data-network="stumbleupon"></i>
+<div class="share-buttons-outer-wrap">
+  <div class="share-buttons-wrap">
+	  <i class="fa fa-twitter" data-network="twitter"></i>
+	  <i class="fa fa-facebook" data-network="facebook"></i>
+	  <i class="fa fa-linkedin" data-network="linkedin"></i>
+	  <i class="fa fa-google-plus" data-network="googleplus"></i>
+    {{#if media}}
+		  <i class="fa fa-pinterest" data-network="pinterest"></i>
+	  {{/if}}
+  </div>
+</div>
+<div class="close-share-wrap" can-click="closePanel">
+  Share
+  <i class="fa fa-times"></i>
 </div>

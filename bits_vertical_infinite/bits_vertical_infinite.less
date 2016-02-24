@@ -1,4 +1,3 @@
-@import "../style/embed.less";
 
 bh-bits-vertical-infinite {
 		display: block;
@@ -11,7 +10,13 @@ bh-bits-vertical-infinite {
     -webkit-overflow-scrolling: touch;
 		overflow-x: hidden;
 		padding-bottom: 20px;
-		.clearfix;
+		&:before, &:after {
+      content: " "; // 1
+      display: table; // 2
+    }
+    &:after {
+      clear: both;
+    }
 		.bit-content {
 				.bit-content--caption {
 						overflow: hidden;

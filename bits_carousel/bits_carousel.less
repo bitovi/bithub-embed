@@ -1,27 +1,9 @@
-
-@gray-darker:						 lighten(#000, 13.5%); // #222
-@gray-dark:							 lighten(#000, 20%);	 // #333
-@gray:									 lighten(#000, 33.5%); // #555
-@gray-light:						 lighten(#000, 80.7%); // #777
-@gray-lighter:					 lighten(#000, 93.5%); // #eee
-
-@brand-primary:					#428bca;
-@brand-success:					#5cb85c;
-@brand-info:						#5bc0de;
-@brand-warning:					#f0ad4e;
-@brand-danger:					#d9534f;
-
-// custom brand colors
-@white: #fff;
-
-
 bh-bits-carousel {
-    
     width: 100%;
     display: block;
     position: relative;
     .outer-carousel-wrap {
-        margin: 0 100px;
+        margin: 0px 42px;
         overflow: hidden;
         padding: 10px 0;
     }
@@ -30,12 +12,15 @@ bh-bits-carousel {
     }
     .outer-card-wrap {
         float: left;
-        width: 400px;
+        width: 350px;
         bh-bit-carousel .bit-wrap {
             margin-top: 0;
-            margin-left: 0;
+            margin-left: 15px;
+            margin-right: 15px;
             height: 100% !important;
-            border: 3px solid @gray-light;
+            border: 2px solid white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
         }
         img {
             max-width: 100%;
@@ -49,36 +34,35 @@ bh-bits-carousel {
     }
     .carousel-prev, .carousel-next {
         border-radius: 100%;
-        background: @gray-light;
-        width: 50px;
-        height: 50px;
+        background: #4a7c8d;
+        color: white;
+        width: 34px;
+        height: 34px;
         position: absolute;
-        top: 50%;
-        margin-top: -25px;
-        font-size: 70px;
-        line-height: 37px;
+        font-size: 25px;
+        line-height: 50px;
         text-align: center;
         z-index: 100;
         cursor: pointer;
         background-repeat: no-repeat;
-        &:hover {
-            background-color: @brand-primary;
-            color: white;
-        }
+        top: 50%;
+        margin-top: -17px;
+        background-size: 30px;
+        
     }
 
     .carousel-prev {
         left: 0;
-        margin-left: 75px;
+        background-image: url(../images/arrow-left.svg);
+        background-position: 50% 50%;
     }
 
     .carousel-next {
         right: 0;
-        margin-right: 75px;
+        background-image: url(../images/arrow-right.svg);
+        background-position: 50% 50%;
     }
     .loading-wrap {
-        width: 390px;
-        height: 480px;
         text-align: center;
         float: left;
         background-image: url(../images/card-loader.gif);
@@ -87,7 +71,11 @@ bh-bits-carousel {
         border-radius: 5px;
 		    -moz-border-radius: 5px;
 		    -webkit-border-radius: 5px;
-        border: 3px solid @gray-light;
+        /*border: 1px solid #71b5c5;*/
+        .image {
+            padding-bottom: 85%;
+            margin-bottom: 155px;
+        }
     }
 }
 

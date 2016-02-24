@@ -4,7 +4,7 @@ import _throttle from "lodash-amd/modern/function/throttle";
 import PartitionedColumnList from "./partitioned_column_list";
 import BitModel from "models/bit";
 
-
+import "../style/embed.less!";
 import "./bits_vertical_infinite.less!";
 import "can/construct/proxy/";
 import "can/map/define/";
@@ -33,7 +33,7 @@ var cookie = function(name, value, ttl, path, domain, secure) {
 var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
 	addPending : function(item, shouldUnshift){
 		can.batch.start();
-		item.attr('@pendingRender', true);
+		item.attr('__pendingRender', true);
 
 		this.__pendingItems = this.__pendingItems || [];
 
@@ -57,7 +57,7 @@ var PartitionedColumnListWithDeferredRendering = PartitionedColumnList.extend({
 
 			can.batch.start();
 			for(var i = 0; i < toProcess.length; i++){
-				toProcess[i].attr('@pendingRender', false);
+				toProcess[i].attr('__pendingRender', false);
 			}
 			can.batch.stop();
 

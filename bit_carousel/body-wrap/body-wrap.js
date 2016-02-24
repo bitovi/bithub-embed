@@ -1,4 +1,19 @@
-import can from "can/";
+/**
+ * Gets HTML markup
+ * <body-wrap >Arbitrary HTML</body-wrap>
+ * 
+ * If scrollHeight is too big .. add expander.
+ * Makes images fit the width of the.
+ * 
+ * Makes any iframes responsive.
+ * 
+ * Cuts off images if they are too big.
+ * 
+ * No element should be wider than card.
+ * 
+ * Manage height.
+ */
+import can from "can";
 import initView from "./body-wrap.stache!";
 import "./body-wrap.less!";
 import "can/construct/proxy/";
@@ -61,6 +76,12 @@ can.Component.extend({
 			var height = wrap.height();
 
 			this.scope.attr('isTooTall', height < scrollHeight);
+		},
+		'{scope} isExpanded' : function(){
+			var self = this;
+			setTimeout(function(){
+				self.element.trigger('cardExpanded', [self.element.closest('bh-bit-carousel').outerHeight()]);
+			}, 1);
 		}
 	}
 });
